@@ -1,3 +1,4 @@
+package Julian;
 import java.util.*;
 
 public class Course implements Comparable<Course> {
