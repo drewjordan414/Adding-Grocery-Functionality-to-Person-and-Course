@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import Drew.Shopper;
-
 
 public class Person implements Comparable<Person>, Shopper {
     private String firstName;
