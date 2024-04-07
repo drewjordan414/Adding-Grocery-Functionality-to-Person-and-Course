@@ -1,78 +1,100 @@
-package Julian;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class Student extends Person implements Comparable<Person> {
-    private int studentId;
+public class Student extends Person implements Comparable<Student>, Iterable<Course> {
+    private int studentId;//Map<Integer, Student> idToStudent
     private int totalCreditHours;
-    private Set<Course> registeredCourses;
+    private List<Course> courses = new ArrayList<>();
+    private List<Course> waitListed = new ArrayList<>();
     private List<Course> waitListedCourses;
 
-    public Student(String firstName, String familyName, int studentId){
-        super(firstName, familyName);
-        this.studentId = studentId;
-        this.registeredCourses = new TreeSet<>();
-        this.totalCreditHours = 0;
-        this.waitListedCourses = new LinkedList<>();
-        Admin.getInstance().addStudent(this);
+    public Student(int id, String firstName, String lastName) {
+        super(firstName, lastName);
+        studentId = id;
     }
 
-
-    public Student(Person person, int studentId){
-        super(person.getFirstName(), person.getLastName());
-        this.studentId = studentId;
-        this.registeredCourses = new TreeSet<>();
-        this.totalCreditHours = 0;
-        Admin.getInstance().addStudent(this);
+    public int getStudentId(){
+        return studentId;
     }
-
-    public void addRegisteredCourse(Course course) {
-        this.registeredCourses.add(course);
-        this.totalCreditHours += course.getCreditHours();
-    }
-
-    public void addWaitListedCourse(Course course) {
-        this.waitListedCourses.add(course);
-    }
-
-    public void dropCourse(Course course){
-        if(this.registeredCourses.contains(course)) {
-            this.registeredCourses.remove(course);
-            this.totalCreditHours -= course.getCreditHours();
-            course.removeStudent(this);
+    /*
+    Student record needs to be updated to show course
+    The course record needs to be updated to show the students
+     */
+    public void addCourse(Course course) {
+        if (!courses.contains(course)) {
+            courses.add(course);
         }
     }
 
-    public String toString(){
-        return this.getLastName()+", "+getFirstName();
+
+    public void removeCourse(Course course) {
+        courses.remove(course);
     }
 
 
-    public int compareTo(Student other){
-            int compareLastName = this.getLastName().compareTo(other.getLastName());
-            if (compareLastName != 0) {
-                return compareLastName;
-            }
-            return this.getFirstName().compareTo(other.getFirstName());
+    public void moveFromWaitList(Course course) {
+        if (waitListed.remove(course)) {
+            courses.add(course);
+        }
     }
 
-    public double applyMyDiscount() {
-        GroceryList myGroceryList = getGroceryList();
-        if (myGroceryList == null) return 0;
-        double totalCost = myGroceryList.currentBalance();
-        return totalCost * 0.9; // Apply a 10% discount for UnderGrad students
+    public void removeFromWaitList(Course course) {
+        waitListed.remove(course);
     }
 
-   public Set<Course> getRegisteredCourses(){
-        return this.registeredCourses;
-   }
 
-    public int getStudentId(){
-        return this.studentId;
-   }
-
-   public int getCreditHours(){
-        return this.totalCreditHours;
-
+    public void addWaitListed(Course course) {
+        if (!waitListed.contains(course)) {
+            waitListed.add(course);
+        }
     }
+
+    public ArrayList<Course> getCourse() {
+        return new ArrayList<>(courses);
+    }
+
+
+    public List<Course> getWaitListed() {
+        return new ArrayList<>(waitListed);
+    }
+
+
+
+    public String toString() {
+        String studentInfo = "\tStudent: " + getName() + "\tStudent ID: " + studentId;
+        String enrolledCourses = "\nCourses: ";
+        for (Course course : courses) {
+            enrolledCourses += course.getCourseName() + ", ";
+        }
+        String waitlistedCourses = "\nWaitlisted Courses: ";
+        for (Course course : waitListed) {
+            waitlistedCourses += course.getCourseName() + ", ";
+        }
+        return studentInfo + enrolledCourses + waitlistedCourses;
+    }
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Student))
+            return false;
+        Student student = (Student) o;
+        return studentId == student.studentId;
+    }
+    public Iterator<Course> iterator(){
+        return courses.iterator();
+    }
+
+
+    public void addRegisteredCourse(Course course) {
+        this.courses.add(course);
+        this.totalCreditHours += course.getCreditHours();
+    }
+
+    @Override
+    public int compareTo(Student other) {
+
+        return Integer.compare(this.studentId, other.studentId);
+    }
+
 }
-
