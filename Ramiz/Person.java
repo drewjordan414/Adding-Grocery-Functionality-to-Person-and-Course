@@ -1,4 +1,3 @@
-package Ramiz;
 public class Person {
     private String firstName;
     private String lastName;
@@ -7,7 +6,6 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
     public String getFirstName() {
         return firstName;
     }
@@ -24,17 +22,13 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public String getName() {
-        return firstName + " " + lastName;
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if(!(o instanceof Person))
-            return false;
-    return firstName.equals(((Person) o).firstName) && lastName.equals(((Person) o).lastName);
+    public String toString() {
+        return "Name: " + getFullName();
     }
+
+
 }
-
