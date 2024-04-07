@@ -59,7 +59,7 @@ public class CapstoneMain {
     public static void enrollStudentsInCourses(List<Student> students, List<Course> courses, Registry registry) {
         for (Course course : courses) {
             for (Student student : students) {
-                registry.enrollStudent(student, course);//enroll students in courses; method enrollStudent missing course.enrollStudent(student)
+                registry.enrollStudent(student, course);//enroll students in courses
             }
         }
     }
