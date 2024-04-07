@@ -1,3 +1,8 @@
+import Person;
+import Professor;
+import Student;
+import Undergrad;
+
 public class Main {
     public static void main(String[] args) {
 
