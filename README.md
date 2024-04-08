@@ -1,3 +1,4 @@
 # Comp 271 Capstone
 
-### OOP Code
+## UML Diagram
+![uml diagram](uml.png)
