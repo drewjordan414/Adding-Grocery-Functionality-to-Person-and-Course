@@ -15,15 +15,28 @@ public class Course implements Comparable<Course> {
    private int maxEnrollment;
    private Set<Student> enrolledStudents;
    private List<Student> waitList;
+   private Semester semester;
 
-   public Course(int creditHours, String courseNumber, String courseTitle, int maxEnrollment) {
+   public Course(int creditHours, String courseNumber, String courseTitle, int maxEnrollment, Semester semester) {
       this.creditHours = creditHours;
       this.courseNumber = courseNumber;
       this.courseTitle = courseTitle;
       this.maxEnrollment = maxEnrollment;
-      this.enrolledStudents = new TreeSet(Comparator.comparing(Student::getStudentId));
+      this.semester = semester; // Initialize the semester
+      this.enrolledStudents = new TreeSet<>(Comparator.comparing(Student::getStudentId));
       this.waitList = new LinkedList();
    }
+
+   // getter method for Semester
+   public Semester getSemester() {
+      return semester;
+   }
+
+   // setter method for Semester
+   public void setSemester(Semester semester) {
+      this.semester = semester;
+   }
+
 
    public boolean enrollStudent(Student student) {
       if (this.enrolledStudents.size() < this.maxEnrollment) {

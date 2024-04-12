@@ -26,18 +26,20 @@ public class Registry implements Iterable<Student> {
 
    }
 
-   public boolean enrollStudent(Student student, Course course) {
-      if (this.students.contains(student) && this.courses.contains(course)) {
-         if (course.enrollStudent(student)) {
-            return true;
-         } else {
-            student.addWaitListedCourse(course);
-            return false;
-         }
+   public boolean enrollStudent(Student student, Course course, Semester semester) {
+      if (this.students.contains(student) && this.courses.contains(course) && course.getSemester().equals(semester)) {
+          if (course.getEnrolledStudents().size() < course.getMaxEnrollment()) {
+              course.enrollStudent(student);
+              return true;
+          } else {
+              student.addWaitListedCourse(course);
+              return false;
+          }
       } else {
-         return false;
+          return false; 
       }
-   }
+  }
+  
 
    public void dropStudent(Student student, Course course) {
       if (this.students.contains(student) && this.courses.contains(course)) {
