@@ -1,0 +1,252 @@
+@startuml
+skinparam style strictuml
+
+class Course {
+    - creditHours : int
+    - courseNumber : String
+    - courseTitle : String
+    - maxEnrollment : int
+    - enrolledStudents : Set<Student>
+    - waitList : List<Student>
+    + enrollStudent(student : Student) : boolean
+    + removeStudent(student : Student) : void
+    + checkWaitList() : void
+    + compareTo(o : Course) : int
+    + getCreditHours() : int
+    + getCourseNumber() : String
+    + getCourseTitle() : String
+    + getMaxEnrollment() : int
+    + getEnrolledStudents() : Set<Student>
+    + getWaitList() : List<Student>
+}
+
+class GroceryItemOrder {
+    - name : String
+    - quantity : int
+    - pricePerUnit : double
+    + getCost() : double
+    + getName() : String
+    + getQuantity() : int
+    + getPricePerUnit() : double
+    + setQuantity(quantity : int) : void
+}
+
+class GroceryList {
+    - MAX_ITEMS : int
+    - items : GroceryItemOrder[]
+    - itemCount : int
+    + add(item : GroceryItemOrder) : void
+    + getTotalCost() : double
+}
+
+class GroceryStore {
+    - name : String
+    - inventory : Map<String, Double>
+    + addItem(itemName : String, pricePerUnit : double) : void
+    + getPrice(itemName : String) : double
+    + getOrder(itemName : String, quantity : int) : GroceryItemOrder
+}
+
+class Person {
+    - firstName : String
+    - lastName : String
+    + getFirstName() : String
+    + setFirstName(firstName : String) : void
+    + getLastName() : String
+    + setLastName(lastName : String) : void
+    + getFullName() : String
+}
+
+class Student {
+    - studentId : int
+    - registeredCourses : List<Course>
+    - waitListedCourses : List<Course>
+    - groceryList : GroceryList
+    + addRegisteredCourse(course : Course) : void
+    + removeCourse(course : Course) : void
+    + addWaitListedCourse(course : Course) : void
+    + removeFromWaitList(course : Course) : void
+    + getRegisteredCourses() : List<Course>
+    + getWaitListedCourses() : List<Course>
+    + createGroceryList() : void
+    + addItemToGroceryList(itemName : String, quantity : int, store : GroceryStore) : void
+    + viewGroceryList() : void
+}
+
+class Professor {
+    - department : String
+    + getDepartment() : String
+    + setDepartment(department : String) : void
+}
+
+class Undergrad {
+    - year : int
+    + setYear(year : int) : void
+    + getYear() : int
+}
+
+class Registry {
+    - students : List<Student>
+    - courses : List<Course>
+    + addStudent(student : Student) : void
+    + addCourse(course : Course) : void
+    + enrollStudent(student : Student, course : Course) : boolean
+    + dropStudent(student : Student, course : Course) : void
+    + iterator() : Iterator<Student>
+}
+
+interface Shopper {
+    + createGroceryList() : void
+    + addItemToGroceryList(itemName : String, quantity : int, store : GroceryStore) : void
+    + viewGroceryList() : void
+}
+
+Person <|-- Professor
+Person <|-- Student
+Student <|-- Undergrad
+Student ..|> Shopper : implements
+Registry --> "many" Student : contains >
+Registry --> "many" Course : contains >
+Course --> "many" Student : enrolledStudents >
+Course --> "many" Student : waitList >
+Student --> "1" GroceryList : groceryList >
+GroceryList --> "many" GroceryItemOrder : items >
+GroceryStore --> "many" GroceryItemOrder : creates >
+
+@enduml
+
+
+
+
+
+WITH SEMESTER:
+@startuml
+skinparam style strictuml
+
+class Course {
+    - creditHours : int
+    - courseNumber : String
+    - courseTitle : String
+    - maxEnrollment : int
+    - enrolledStudents : Set<Student>
+    - waitList : List<Student>
+    - semester : Semester
+    + enrollStudent(student : Student, semester : Semester) : boolean
+    + removeStudent(student : Student) : void
+    + checkWaitList() : void
+    + compareTo(o : Course) : int
+    + getCreditHours() : int
+    + getCourseNumber() : String
+    + getCourseTitle() : String
+    + getMaxEnrollment() : int
+    + getEnrolledStudents() : Set<Student>
+    + getWaitList() : List<Student>
+    + getSemester() : Semester
+    + setSemester(semester : Semester) : void
+}
+
+class Semester {
+    - term : String
+    - year : int
+    + getTerm() : String
+    + setTerm(term : String) : void
+    + getYear() : int
+    + setYear(year : int) : void
+    + getNextSemester() : Semester
+}
+
+class GroceryItemOrder {
+    - name : String
+    - quantity : int
+    - pricePerUnit : double
+    + getCost() : double
+    + getName() : String
+    + getQuantity() : int
+    + getPricePerUnit() : double
+    + setQuantity(quantity : int) : void
+}
+
+class GroceryList {
+    - MAX_ITEMS : int
+    - items : GroceryItemOrder[]
+    - itemCount : int
+    + add(item : GroceryItemOrder) : void
+    + getTotalCost() : double
+}
+
+class GroceryStore {
+    - name : String
+    - inventory : Map<String, Double>
+    + addItem(itemName : String, pricePerUnit : double) : void
+    + getPrice(itemName : String) : double
+    + getOrder(itemName : String, quantity : int) : GroceryItemOrder
+}
+
+class Person {
+    - firstName : String
+    - lastName : String
+    + getFirstName() : String
+    + setFirstName(firstName : String) : void
+    + getLastName() : String
+    + setLastName(lastName : String) : void
+    + getFullName() : String
+}
+
+class Student {
+    - studentId : int
+    - registeredCourses : List<Course>
+    - waitListedCourses : List<Course>
+    - groceryList : GroceryList
+    + addRegisteredCourse(course : Course) : void
+    + removeCourse(course : Course) : void
+    + addWaitListedCourse(course : Course) : void
+    + removeFromWaitList(course : Course) : void
+    + getRegisteredCourses() : List<Course>
+    + getWaitListedCourses() : List<Course>
+    + createGroceryList() : void
+    + addItemToGroceryList(itemName : String, quantity : int, store : GroceryStore) : void
+    + viewGroceryList() : void
+}
+
+class Professor {
+    - department : String
+    + getDepartment() : String
+    + setDepartment(department : String) : void
+}
+
+class Undergrad {
+    - year : int
+    + setYear(year : int) : void
+    + getYear() : int
+}
+
+class Registry {
+    - students : List<Student>
+    - courses : List<Course>
+    + addStudent(student : Student) : void
+    + addCourse(course : Course) : void
+    + enrollStudent(student : Student, course : Course, semester : Semester) : boolean
+    + dropStudent(student : Student, course : Course) : void
+    + iterator() : Iterator<Student>
+}
+
+interface Shopper {
+    + createGroceryList() : void
+    + addItemToGroceryList(itemName : String, quantity : int, store : GroceryStore) : void
+    + viewGroceryList() : void
+}
+
+Person <|-- Professor
+Person <|-- Student
+Student <|-- Undergrad
+Student ..|> Shopper : implements
+Registry --> "many" Student : contains >
+Registry --> "many" Course : contains >
+Course --> "many" Student : enrolledStudents >
+Course --> "many" Student : waitList >
+Course --> Semester : semester
+Student --> "1" GroceryList : groceryList >
+GroceryList --> "many" GroceryItemOrder : items >
+GroceryStore --> "many" GroceryItemOrder : creates >
+
+@enduml
