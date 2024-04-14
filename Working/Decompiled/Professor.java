@@ -24,44 +24,121 @@
 //  }
  
 
+// package Working.Decompiled;
+
+// import java.util.ArrayList;
+// import java.util.List;
+
+// public class Professor extends Person implements Shopper {
+//     private String department;
+//     private List<Course> coursesTaught; // A list to keep track of courses the professor teaches
+
+//     public Professor(String firstName, String lastName, String department) {
+//         super(firstName, lastName);
+//         this.department = department;
+//         this.coursesTaught = new ArrayList<>(); // Initialize the list of courses
+//     }
+
+//     public String getDepartment() {
+//         return this.department;
+//     }
+
+//     public void setDepartment(String department) {
+//         this.department = department;
+//     }
+
+//     // Method to add a course to the list of courses taught by the professor
+//     public void addCourse(Course course) {
+//         if (!this.coursesTaught.contains(course)) {
+//             this.coursesTaught.add(course);
+//         }
+//     }
+
+//     // Method to remove a course from the list of courses taught by the professor
+//     public void removeCourse(Course course) {
+//         this.coursesTaught.remove(course);
+//     }
+
+//     // Method to get the list of courses taught by the professor
+//     public List<Course> getCoursesTaught() {
+//         return this.coursesTaught;
+//     }
+
+//     @Override
+//     public String toString() {
+//         return "Professor Name: " + getFullName() + " | Department: " + getDepartment();
+//     }
+// }
+
+
+
 package Working.Decompiled;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Professor extends Person {
+public class Professor extends Person implements Shopper {
+   private int id;
     private String department;
-    private List<Course> coursesTaught; // A list to keep track of courses the professor teaches
+    private List<Course> coursesTaught;
+    private GroceryList groceryList;
 
     public Professor(String firstName, String lastName, String department) {
         super(firstName, lastName);
         this.department = department;
-        this.coursesTaught = new ArrayList<>(); // Initialize the list of courses
+        this.coursesTaught = new ArrayList<>();
+        this.groceryList = new GroceryList();
     }
 
     public String getDepartment() {
-        return this.department;
+        return department;
     }
 
     public void setDepartment(String department) {
         this.department = department;
     }
 
-    // Method to add a course to the list of courses taught by the professor
     public void addCourse(Course course) {
-        if (!this.coursesTaught.contains(course)) {
-            this.coursesTaught.add(course);
+        if (!coursesTaught.contains(course)) {
+            coursesTaught.add(course);
         }
     }
 
-    // Method to remove a course from the list of courses taught by the professor
     public void removeCourse(Course course) {
-        this.coursesTaught.remove(course);
+        coursesTaught.remove(course);
     }
 
-    // Method to get the list of courses taught by the professor
     public List<Course> getCoursesTaught() {
-        return this.coursesTaught;
+        return coursesTaught;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void createGroceryList() {
+        this.groceryList = new GroceryList();
+    }
+
+    @Override
+    public boolean addItemToGroceryList(String itemName, int quantity, GroceryStore store) {
+        GroceryItemOrder item = store.getOrder(itemName, quantity);
+        if (item != null) {
+            groceryList.add(item);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void viewGroceryList() {
+        System.out.println("Grocery List for " + getFullName() + ":\n" + groceryList);
+    }
+
+    @Override
+    public boolean removeItemFromGroceryList(String itemName) {
+        return groceryList.removeItem(itemName);
     }
 
     @Override

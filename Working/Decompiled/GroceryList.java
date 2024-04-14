@@ -70,6 +70,22 @@ public class GroceryList {
         }
     }
 
+    public boolean removeItem(String itemName) {
+      for (int i = 0; i < itemCount; i++) {
+          if (items[i].getName().equals(itemName)) {
+              // Shift the array to fill the removed item's position
+              for (int j = i; j < itemCount - 1; j++) {
+                  items[j] = items[j + 1];
+              }
+              items[itemCount - 1] = null; // Nullify the last element
+              itemCount--;
+              return true; // Successfully removed the item
+          }
+      }
+      return false; // Item was not found
+  }
+  
+
     // Method to calculate the total cost of all items in the list
     public double getTotalCost() {
         double totalCost = 0.0;

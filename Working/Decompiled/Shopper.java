@@ -13,11 +13,7 @@
 package Working.Decompiled;
 
 public interface Shopper {
-    /**
-     * Creates a new grocery list. This might replace any existing list.
-     */
     void createGroceryList();
-
     /**
      * Attempts to add an item to the grocery list.
      * @param itemName The name of the item to add.
@@ -26,12 +22,7 @@ public interface Shopper {
      * @return true if the item was successfully added, false otherwise (e.g., item not found).
      */
     boolean addItemToGroceryList(String itemName, int quantity, GroceryStore store);
-
-    /**
-     * Displays the contents of the grocery list.
-     */
     void viewGroceryList();
-
     /**
      * Removes an item from the grocery list.
      * @param itemName The name of the item to remove.
