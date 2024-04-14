@@ -75,6 +75,7 @@ public class Main {
    private static Scanner scanner = new Scanner(System.in);
 
    public static void main(String[] args) {
+      initializeTestData();
       // Initialize the system with courses, students, professors, etc.
       // ...
 
@@ -100,6 +101,49 @@ public class Main {
       }
       scanner.close();
    }
+
+   private static void initializeTestData() {
+      // Create semesters
+      Semester fall2024 = new Semester("Fall", 2024);
+      Semester spring2025 = new Semester("Spring", 2025);
+
+      // Create professors
+      Professor prof1 = new Professor("John", "Doe", "Computer Science");
+      Professor prof2 = new Professor("Jane", "Smith", "Mathematics");
+      prof1.setId(9001);  // Method setId should be defined in Professor class
+      prof2.setId(9002);
+      registry.addProfessor(prof1);
+      registry.addProfessor(prof2);
+
+      // Create courses
+      Course cs101 = new Course(3, "CS101", "Intro to Computer Science", 30, fall2024, prof1);
+      Course math101 = new Course(4, "MATH101", "Calculus I", 30, spring2025, prof2);
+      registry.addCourse(cs101);
+      registry.addCourse(math101);
+
+      // Create students
+      Student student1 = new Student("Alice", "Johnson", 10001);
+      Student student2 = new Student("Bob", "Brown", 10002);
+      registry.addStudent(student1);
+      registry.addStudent(student2);
+
+      // Enroll students in courses
+      registry.enrollStudent(student1, cs101, fall2024);
+      registry.enrollStudent(student2, math101, spring2025);
+
+      // Add grocery items to the market
+      campusMarket.addItem("Apples", 0.99);
+      campusMarket.addItem("Milk", 2.49);
+      campusMarket.addItem("Bread", 1.99);
+
+      // Initialize grocery lists for a test run
+      student1.createGroceryList();
+      student1.addItemToGroceryList("Apples", 5, campusMarket);
+      student1.addItemToGroceryList("Milk", 1, campusMarket);
+
+      student2.createGroceryList();
+      student2.addItemToGroceryList("Bread", 2, campusMarket);
+  }
 
    private static Semester getCurrentSemester() {
       // Return a new instance of Semester with current year and term

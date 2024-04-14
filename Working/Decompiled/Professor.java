@@ -90,6 +90,14 @@ public class Professor extends Person implements Shopper {
         this.groceryList = new GroceryList();
     }
 
+    public int getId() {
+      return id;
+  }
+
+  public void setId(int id) {
+      this.id = id;
+  }
+
     public String getDepartment() {
         return department;
     }
@@ -110,10 +118,6 @@ public class Professor extends Person implements Shopper {
 
     public List<Course> getCoursesTaught() {
         return coursesTaught;
-    }
-
-    public int getId() {
-        return id;
     }
 
     @Override
@@ -143,6 +147,6 @@ public class Professor extends Person implements Shopper {
 
     @Override
     public String toString() {
-        return "Professor Name: " + getFullName() + " | Department: " + getDepartment();
-    }
+      return "Professor Name: " + getFullName() + " | Department: " + getDepartment() + " | ID: " + getId();
+  }
 }
