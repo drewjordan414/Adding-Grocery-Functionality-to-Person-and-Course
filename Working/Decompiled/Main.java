@@ -116,8 +116,8 @@ public class Main {
       registry.addProfessor(prof2);
 
       // Create courses
-      Course cs101 = new Course(3, "CS101", "Intro to Computer Science", 30, fall2024, prof1);
-      Course math101 = new Course(4, "MATH101", "Calculus I", 30, spring2025, prof2);
+      Course cs101 = new Course(3, "CS101", "Intro to Computer Science", 30, fall2024, prof1, "Undergrad");
+      Course math101 = new Course(4, "MATH101", "Calculus I", 30, spring2025, prof2, "Graduate");   
       registry.addCourse(cs101);
       registry.addCourse(math101);
 

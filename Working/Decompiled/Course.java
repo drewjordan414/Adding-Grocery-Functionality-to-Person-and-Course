@@ -267,13 +267,14 @@ public class Course implements Comparable<Course> {
     private Professor professor; // Reference to Professor who teaches the course
     private String level; // Level of the course, e.g., "Undergrad" or "Graduate"
 
-    public Course(int creditHours, String courseNumber, String courseTitle, int maxEnrollment, Semester semester, Professor professor) {
+    public Course(int creditHours, String courseNumber, String courseTitle, int maxEnrollment, Semester semester, Professor professor, String level) {
         this.creditHours = creditHours;
         this.courseNumber = courseNumber;
         this.courseTitle = courseTitle;
         this.maxEnrollment = maxEnrollment;
         this.semester = semester;
         this.professor = professor;  // Set the professor
+        this.level = level;
         // this.enrolledStudents = new TreeSet<>(Comparator.comparing(Student::getStudentId));
         this.enrolledStudents = new TreeSet<>(Comparator.comparing(Student::getFullName)); // Comparing by full name
         this.waitList = new LinkedList<>();

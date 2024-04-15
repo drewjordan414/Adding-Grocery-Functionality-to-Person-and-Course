@@ -132,10 +132,11 @@ public class Registry implements Iterable<Student> {
 
     public Professor findProfessorByName(String name) {
         return professors.stream()
-                       .filter(professor -> professor.getFullName().equalsIgnoreCase(name))
-                       .findFirst()
-                       .orElse(null);
+                         .filter(professor -> professor.getFullName().equalsIgnoreCase(name))
+                         .findFirst()
+                         .orElse(null);
     }
+    
     
 
     // public boolean enrollStudent(Student student, Course course, Semester semester) {
