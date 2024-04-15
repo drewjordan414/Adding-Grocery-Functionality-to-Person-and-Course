@@ -4,7 +4,7 @@ public class Graduate extends Student {
     private String researchTopic;
 
     public Graduate(String firstName, String lastName, int studentId, String researchTopic) {
-        super(firstName, lastName, studentId);
+        super(firstName, lastName); //add in studentId if needed
         this.researchTopic = researchTopic;
     }
 

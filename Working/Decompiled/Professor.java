@@ -78,7 +78,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Professor extends Person implements Shopper {
-   private int id;
+//    private int id;
     private String department;
     private List<Course> coursesTaught;
     private GroceryList groceryList;
@@ -90,13 +90,13 @@ public class Professor extends Person implements Shopper {
         this.groceryList = new GroceryList();
     }
 
-    public int getId() {
-      return id;
-  }
+//     public int getId() {
+//       return id;
+//   }
 
-  public void setId(int id) {
-      this.id = id;
-  }
+//   public void setId(int id) {
+//       this.id = id;
+//   }
 
     public String getDepartment() {
         return department;
@@ -147,6 +147,7 @@ public class Professor extends Person implements Shopper {
 
     @Override
     public String toString() {
-      return "Professor Name: " + getFullName() + " | Department: " + getDepartment() + " | ID: " + getId();
-  }
+    //   return "Professor Name: " + getFullName() + " | Department: " + getDepartment() + " | ID: " + getId();
+      return "Professor Name: " + getFullName() + " | Department: " + getDepartment();  
+    }
 }

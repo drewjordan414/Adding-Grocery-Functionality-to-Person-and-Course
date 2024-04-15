@@ -1,15 +1,3 @@
-// package Working.Decompiled;
-
-// // Source code is decompiled from a .class file using FernFlower decompiler.
-// public interface Shopper {
-//     void createGroceryList();
- 
-//     void addItemToGroceryList(String var1, int var2, GroceryStore var3);
- 
-//     void viewGroceryList();
-//  }
- 
-
 package Working.Decompiled;
 
 public interface Shopper {
@@ -30,10 +18,4 @@ public interface Shopper {
      */
     boolean removeItemFromGroceryList(String itemName);
 }
-
-
-
-// Modifications:
-// Return Types: Changed the return type of addItemToGroceryList and added removeItemFromGroceryList with a boolean return type to indicate whether the operation was successful.
-// Error Handling: The boolean return values enable simple error handling without throwing exceptions, making the interface easier to implement in various contexts.
 

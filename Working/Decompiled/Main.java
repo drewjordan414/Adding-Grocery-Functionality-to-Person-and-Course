@@ -110,8 +110,8 @@ public class Main {
       // Create professors
       Professor prof1 = new Professor("John", "Doe", "Computer Science");
       Professor prof2 = new Professor("Jane", "Smith", "Mathematics");
-      prof1.setId(9001);  // Method setId should be defined in Professor class
-      prof2.setId(9002);
+      // prof1.setId(9001);  // Method setId should be defined in Professor class
+      // prof2.setId(9002);
       registry.addProfessor(prof1);
       registry.addProfessor(prof2);
 
@@ -122,8 +122,8 @@ public class Main {
       registry.addCourse(math101);
 
       // Create students
-      Student student1 = new Student("Alice", "Johnson", 10001);
-      Student student2 = new Student("Bob", "Brown", 10002);
+      Student student1 = new Student("Alice", "Johnson");
+      Student student2 = new Student("Bob", "Brown");
       registry.addStudent(student1);
       registry.addStudent(student2);
 

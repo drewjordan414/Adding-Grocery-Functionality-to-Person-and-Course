@@ -146,14 +146,14 @@ public class Registry implements Iterable<Student> {
 
     public Professor findProfessorById(int professorId) {
         return professors.stream()
-                         .filter(professor -> professor.getId() == professorId) // Assuming Professor has getId() method
+                        //  .filter(professor -> professor.getId() == professorId)
                          .findFirst()
                          .orElse(null);
     }
 
     public Student findStudentById(int studentId) {
         return students.stream()
-                       .filter(student -> student.getStudentId() == studentId)
+                    //    .filter(student -> student.getStudentId() == studentId)
                        .findFirst()
                        .orElse(null);
     }
@@ -198,7 +198,7 @@ public class Registry implements Iterable<Student> {
         StringBuilder registryInfo = new StringBuilder("LOYOLA COMPUTER SCIENCE DEPARTMENT: \n\tRegistry\n");
         for (Student student : students) {
             registryInfo.append("\nStudent: ").append(student.getFullName())
-                        .append("\tStudent ID: ").append(student.getStudentId())
+                        // .append("\tStudent ID: ").append(student.getStudentId())
                         .append("\tCourses: ");
             for (Course course : student.getRegisteredCourses()) {
                 registryInfo.append(course.getCourseTitle()).append(" (")

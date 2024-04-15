@@ -5,7 +5,7 @@ public class Undergrad extends Student {
     private int year;
  
     public Undergrad(String firstName, String lastName, int id, int year) {
-       super(firstName, lastName, id);
+       super(firstName, lastName);
        this.setYear(year);
     }
  
@@ -23,7 +23,8 @@ public class Undergrad extends Student {
  
     public String toString() {
        String var10000 = this.getFullName();
-       return "Undergraduate: " + var10000 + " Student ID: " + this.getStudentId() + " Year: " + this.getYear();
+      //  return "Undergraduate: " + var10000 + " Student ID: " + this.getStudentId() + " Year: " + this.getYear();
+       return "Undergraduate: " + var10000 + " Year: " + this.getYear();
     }
  }
  

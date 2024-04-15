@@ -87,20 +87,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends Person implements Shopper {
-    private int studentId;
+    // private int studentId;
     private List<Course> registeredCourses = new ArrayList<>();
     private List<Course> waitListedCourses = new ArrayList<>();
     private GroceryList groceryList;
 
-    public Student(String firstName, String lastName, int id) {
+    public Student(String firstName, String lastName) { //add in int id
         super(firstName, lastName);
-        this.studentId = id;
+        // this.studentId = id;
         this.groceryList = new GroceryList();
     }
 
-    public int getStudentId() {
-        return this.studentId;
-    }
+    // public int getStudentId() {
+    //     return this.studentId;
+    // }
 
     public void addRegisteredCourse(Course course) {
         if (!this.registeredCourses.contains(course)) {
@@ -160,6 +160,7 @@ public class Student extends Person implements Shopper {
 
     @Override
     public String toString() {
-        return "Student Name: " + this.getFullName() + " | Student ID: " + this.getStudentId();
+        // return "Student Name: " + this.getFullName() + " | Student ID: " + this.getStudentId();
+        return "Student Name: " + this.getFullName();
     }
 }
