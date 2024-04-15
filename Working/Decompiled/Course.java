@@ -275,6 +275,7 @@ public class Course implements Comparable<Course> {
         this.semester = semester;
         this.professor = professor;  // Set the professor
         // this.enrolledStudents = new TreeSet<>(Comparator.comparing(Student::getStudentId));
+        this.enrolledStudents = new TreeSet<>(Comparator.comparing(Student::getFullName)); // Comparing by full name
         this.waitList = new LinkedList<>();
     }
 

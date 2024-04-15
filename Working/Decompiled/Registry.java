@@ -138,9 +138,24 @@ public class Registry implements Iterable<Student> {
     }
     
 
+    // public boolean enrollStudent(Student student, Course course, Semester semester) {
+    //     if (students.contains(student) && courses.contains(course) && course.getSemester().equals(semester)) {
+    //         if (course.getEnrolledStudents().size() < course.getMaxEnrollment()) {
+    //             course.enrollStudent(student);
+    //             return true;
+    //         } else {
+    //             student.addWaitListedCourse(course);
+    //             return false;
+    //         }
+    //     } else {
+    //         return false;
+    //     }
+    // }
+
     public boolean enrollStudent(Student student, Course course, Semester semester) {
         if (students.contains(student) && courses.contains(course) && course.getSemester().equals(semester)) {
-            if (course.getEnrolledStudents().size() < course.getMaxEnrollment()) {
+            // Ensure the enrolledStudents is not null
+            if (course.getEnrolledStudents() != null && course.getEnrolledStudents().size() < course.getMaxEnrollment()) {
                 course.enrollStudent(student);
                 return true;
             } else {
