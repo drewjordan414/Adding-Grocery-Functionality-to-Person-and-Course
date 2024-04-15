@@ -130,6 +130,14 @@ public class Registry implements Iterable<Student> {
         }
     }
 
+    public Professor findProfessorByName(String name) {
+        return professors.stream()
+                       .filter(professor -> professor.getFullName().equalsIgnoreCase(name))
+                       .findFirst()
+                       .orElse(null);
+    }
+    
+
     public boolean enrollStudent(Student student, Course course, Semester semester) {
         if (students.contains(student) && courses.contains(course) && course.getSemester().equals(semester)) {
             if (course.getEnrolledStudents().size() < course.getMaxEnrollment()) {
@@ -144,19 +152,30 @@ public class Registry implements Iterable<Student> {
         }
     }
 
-    public Professor findProfessorById(int professorId) {
-        return professors.stream()
-                        //  .filter(professor -> professor.getId() == professorId)
-                         .findFirst()
-                         .orElse(null);
-    }
+    // public Professor findProfessorById(int professorId) {
+    //     return professors.stream()
+    //                     //  .filter(professor -> professor.getId() == professorId)
+    //                      .findFirst()
+    //                      .orElse(null);
+    // }
 
-    public Student findStudentById(int studentId) {
+    
+
+
+    // public Student findStudentById(int studentId) {
+    //     return students.stream()
+    //                 //    .filter(student -> student.getStudentId() == studentId)
+    //                    .findFirst()
+    //                    .orElse(null);
+    // }
+
+    public Student findStudentByName(String name) {
         return students.stream()
-                    //    .filter(student -> student.getStudentId() == studentId)
+                       .filter(student -> student.getFullName().equalsIgnoreCase(name))
                        .findFirst()
                        .orElse(null);
     }
+    
 
     public List<Course> getCoursesByLevelAndSemester(String level, Semester semester) {
         return courses.stream()

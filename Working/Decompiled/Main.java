@@ -110,7 +110,7 @@ public class Main {
       // Create professors
       Professor prof1 = new Professor("John", "Doe", "Computer Science");
       Professor prof2 = new Professor("Jane", "Smith", "Mathematics");
-      // prof1.setId(9001);  // Method setId should be defined in Professor class
+      // prof1.setId(9001); // Method setId should be defined in Professor class
       // prof2.setId(9002);
       registry.addProfessor(prof1);
       registry.addProfessor(prof2);
@@ -143,38 +143,77 @@ public class Main {
 
       student2.createGroceryList();
       student2.addItemToGroceryList("Bread", 2, campusMarket);
-  }
+   }
 
    private static Semester getCurrentSemester() {
       // Return a new instance of Semester with current year and term
       return new Semester("Fall", 2023); // Adjust this based on your needs
-  }
-  
-   private static void handleStudent() {
-      System.out.println("Enter your student ID:");
-      int studentId = Integer.parseInt(scanner.nextLine().trim());
+   }
 
-      Student student = registry.findStudentById(studentId);
+   // private static void handleStudent() {
+   // System.out.println("Enter your student ID:");
+   // int studentId = Integer.parseInt(scanner.nextLine().trim());
+
+   // Student student = registry.findStudentById(studentId);
+   // if (student == null) {
+   // System.out.println("Student not found. Please try again.");
+   // return;
+   // }
+
+   // System.out.println("Are you an 'Undergrad' or 'Graduate' student?");
+   // String studentType = scanner.nextLine().trim().toLowerCase();
+
+   // Semester currentSemester = getCurrentSemester(); // Placeholder for getting
+   // the current semester
+
+   // switch (studentType) {
+   // case "undergrad":
+   // List<Course> undergradCourses =
+   // registry.getCoursesByLevelAndSemester("Undergrad", currentSemester);
+   // System.out.println("Undergraduate Courses available:");
+   // printCourses(undergradCourses);
+   // enrollInCourse(student, undergradCourses);
+   // break;
+   // case "graduate":
+   // List<Course> graduateCourses =
+   // registry.getCoursesByLevelAndSemester("Graduate", currentSemester);
+   // System.out.println("Graduate Courses available:");
+   // printCourses(graduateCourses);
+   // enrollInCourse(student, graduateCourses);
+   // break;
+   // default:
+   // System.out.println("Invalid student type. Please try again.");
+   // break;
+   // }
+
+   // handleGroceryList(student);
+   // }
+   private static void handleStudent() {
+      System.out.println("Enter your full name:");
+      String fullName = scanner.nextLine().trim();
+
+      // Attempt to find the student by name instead of ID
+      Student student = registry.findStudentByName(fullName);
       if (student == null) {
-         System.out.println("Student not found. Please try again.");
+         System.out.println("Student not found. Please ensure you have entered your name correctly.");
          return;
       }
 
-      System.out.println("Are you an 'Undergrad' or 'Graduate' student?");
+      System.out.println("Are you an 'Undergrad' or a 'Graduate' student?");
       String studentType = scanner.nextLine().trim().toLowerCase();
 
-      Semester currentSemester = getCurrentSemester(); // Placeholder for getting the current semester
+      Semester currentSemester = getCurrentSemester(); // This function should determine the current academic semester
 
       switch (studentType) {
          case "undergrad":
             List<Course> undergradCourses = registry.getCoursesByLevelAndSemester("Undergrad", currentSemester);
-            System.out.println("Undergraduate Courses available:");
+            System.out.println("Undergraduate Courses:");
             printCourses(undergradCourses);
             enrollInCourse(student, undergradCourses);
             break;
          case "graduate":
             List<Course> graduateCourses = registry.getCoursesByLevelAndSemester("Graduate", currentSemester);
-            System.out.println("Graduate Courses available:");
+            System.out.println("Graduate Courses:");
             printCourses(graduateCourses);
             enrollInCourse(student, graduateCourses);
             break;
@@ -219,15 +258,21 @@ public class Main {
    }
 
    private static void handleProfessor() {
-      System.out.println("Enter your professor ID:");
-      int professorId = Integer.parseInt(scanner.nextLine().trim());
+      System.out.println("Enter the full name of the professor:");
+      String name = scanner.nextLine().trim();
 
-      Professor professor = registry.findProfessorById(professorId); // Assuming there is a method to find professors by
-                                                                     // ID
+      Professor professor = registry.findProfessorByName(name);
       if (professor == null) {
          System.out.println("Professor not found. Please try again.");
-         return;
+      } else {
+         System.out.println("Welcome, Professor " + professor.getFullName() + "!");
       }
+
+      // Professor professor = registry.findProfessorById(professorId);
+      // if (professor == null) {
+      // System.out.println("Professor not found. Please try again.");
+      // return;
+      // }
 
       // Display the courses the professor is teaching
       List<Course> coursesTeaching = registry.getCoursesByProfessor(professor); // Assuming this method exists
