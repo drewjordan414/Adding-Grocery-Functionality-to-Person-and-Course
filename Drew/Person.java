@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import Shopper;
-
-public class Person implements Comparable<Person>, Shopper {
+public class Person implements Comparable<Person> {
     private String familyName;
     private String givenNames;
     private final LocalDate dob;
@@ -21,23 +19,23 @@ public class Person implements Comparable<Person>, Shopper {
         this.myGroceryList = new GroceryList();
     }
 
-    @Override
-    public void createGroceryList() {
-        this.myGroceryList = new GroceryList();
-    }
+    // @Override
+    // public void createGroceryList() {
+    //     this.myGroceryList = new GroceryList();
+    // }
 
-    @Override
-    public void addItemToGroceryList(String itemName, int quantity, GroceryStore store) {
-        GroceryItemOrder item = store.getOrder(itemName, quantity);
-        if (item != null) {
-            this.myGroceryList.add(item);
-        }
-    }
+    // @Override
+    // public void addItemToGroceryList(String itemName, int quantity, GroceryStore store) {
+    //     GroceryItemOrder item = store.getOrder(itemName, quantity);
+    //     if (item != null) {
+    //         this.myGroceryList.add(item);
+    //     }
+    // }
 
-    @Override
-    public void viewGroceryList() {
-        System.out.println(this.myGroceryList);
-    }
+    // @Override
+    // public void viewGroceryList() {
+    //     System.out.println(this.myGroceryList);
+    // }
 
     @Override
     public int compareTo(Person o) {

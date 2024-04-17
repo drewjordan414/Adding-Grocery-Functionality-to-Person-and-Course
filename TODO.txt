@@ -1,0 +1,4 @@
+TO DO:
+- remove semester class ---> goes into course now
+- no filler data for student, when user types their name, it should ask if they are undergrad or gradutate students and ask if they want to enroll in a class or if they want to view their classes 
+- both students and professors should be able to add to, remove or view their shopping cart
