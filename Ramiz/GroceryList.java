@@ -2,8 +2,10 @@ public class GroceryList {
     private static final int MAX_ITEMS = 10; // Maximum number of items the list can hold
     private GroceryItemOrder[] items = new GroceryItemOrder[MAX_ITEMS]; // Array to store grocery items
     private int itemCount = 0; // Counter to track the number of items in the list
-
-    public GroceryList() {
+    private Person owner;
+    
+    public GroceryList(Person owner) {
+        this.owner = owner;
     }
 
     // Method to add a grocery item to the list
@@ -45,8 +47,13 @@ public class GroceryList {
     // Method to calculate the total cost of all items in the list
     public double getTotalCost() {
         double totalCost = 0.0;
-        for (int i = 0; i < itemCount; i++) {
-            totalCost += items[i].getCost(); // Sum up the cost of each item
+        for (GroceryItemOrder item : items) {
+            totalCost += item.getCost();
+        }
+        if (owner instanceof Professor) {
+            totalCost *= 0.95; // Apply a 5% discount for professors
+        } else if (owner instanceof Graduate) {
+            totalCost *= 0.90; // Apply a 10% discount for graduate students
         }
         return totalCost;
     }
