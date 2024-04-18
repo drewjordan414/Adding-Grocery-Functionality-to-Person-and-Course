@@ -250,3 +250,73 @@ GroceryList --> "many" GroceryItemOrder : items >
 GroceryStore --> "many" GroceryItemOrder : creates >
 
 @enduml
+
+
+
+
+@startuml
+
+class Person {
+    +role: Shopper
+}
+
+class Shopper {
+    +goGroceryShopping()
+}
+
+class GroceryStore {
+    +stockItems()
+}
+
+class GroceryItem {
+    +pricePerUnit: double
+}
+
+class GroceryList {
+    +addItem(item: GroceryItemOrder)
+}
+
+class GroceryItemOrder {
+    +quantity: int
+}
+
+class Registry {
+    +students
+    +professors
+    +courses
+}
+
+class Student {
+    +enroll(course: Course)
+}
+
+class Undergrad extends Student {
+    -discount: double = 0.0
+}
+
+class Graduate extends Student {
+    +discount: double
+}
+
+class Professor {
+    +teach(course: Course)
+}
+
+class Course {
+    -capacity: int = 5
+}
+
+Person "0..n" -- "1" Shopper : is-a
+Shopper "0..n" -- "0..n" GroceryList : owns
+Shopper "0..n" -- "0..n" GroceryStore : selects store
+GroceryList "1" -- "0..n" GroceryItemOrder : contains
+GroceryStore "0..n" -- "1..n" GroceryItem : stocks
+Registry "1" -- "0..n" Student : manages
+Registry "1" -- "0..n" Professor : manages
+Registry "1" -- "0..n" Course : manages
+Student "0..n" -- "0..n" Course : enrolls/waitlisted for
+Course "0..n" -- "1" Professor : teaches
+Student <|-- Undergrad
+Student <|-- Graduate
+
+@enduml
