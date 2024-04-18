@@ -35,7 +35,7 @@ public class Student extends Person {
     public void addRegisteredCourse(Course course) {
         if (!this.registeredCourses.contains(course) && course.getEnrolledStudents().size() < course.getMaxEnrollment()) {
             this.registeredCourses.add(course);
-            course.getEnrolledStudents().add(this);  // Ensure bidirectional relationship is maintained
+            course.getEnrolledStudents().add(this);  // maintains bidirectional relationship
         } else {
             this.addWaitListedCourse(course);  // Automatically add to waitlist if full
         }
@@ -44,7 +44,7 @@ public class Student extends Person {
     public boolean removeCourse(Course course) {
         if (registeredCourses.contains(course)) {
             this.registeredCourses.remove(course);
-            course.getEnrolledStudents().remove(this);  // Maintain bidirectional relationship
+            course.getEnrolledStudents().remove(this);  // maintains bidirectional relationship
             return true;
         }
         return false;
