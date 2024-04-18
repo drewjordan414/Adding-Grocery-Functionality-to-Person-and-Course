@@ -1,24 +1,31 @@
 public class Undergrad extends Student {
     private int year;
-
-
-    public Undergrad(String firstName, String lastName, int id, int year) {
-        super(firstName, lastName, id);
-        setYear(year);
+ 
+    // Updated constructor to match the updated Student class constructor
+    public Undergrad(String firstName, String lastName, String studentType, int year) {
+       super(firstName, lastName, studentType); // Pass 'Undergraduate' as a studentType from wherever you instantiate this class
+       this.setYear(year);
     }
-
+ 
     public int getYear() {
-        return year;
+       return this.year;
     }
-    /*
-    needs to be able to go up to 4 years since undergrad is a 4 year process
-     */
+ 
     public void setYear(int year) {
-        if (year < 1 || year > 4)
-            throw new IllegalArgumentException("Invalid input!");
-        this.year = year;
+       if (year < 1 || year > 4) {
+          throw new IllegalArgumentException("Year must be between 1 and 4.");
+       }
+       this.year = year;
     }
+
+    // Method to get the discount rate for an undergraduate
+    public double getDiscountRate() {
+        // Undergraduates get no discount
+        return 0.0;
+    }
+ 
+    @Override
     public String toString() {
-        return "Undergraduate: " + getFullName() + " " + "Student ID: " + getStudentId() + " Year: " + getYear();
+       return "Undergraduate: " + getFullName() + " Year: " + getYear();
     }
 }

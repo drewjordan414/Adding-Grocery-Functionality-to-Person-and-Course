@@ -3,36 +3,55 @@ import java.util.Map;
 
 public class GroceryStore {
     private String name;
-    private Map<String, Double> inventory; // Maps item name to price
+    private Map<String, GroceryItem> inventory; // Map of item names to GroceryItem objects
 
     public GroceryStore(String name) {
         this.name = name;
         this.inventory = new HashMap<>();
     }
 
-    public void addItem(String itemName, double pricePerUnit) {
-        inventory.put(itemName, pricePerUnit);
+    // Adds a new item to the store
+    public void addItem(GroceryItem item) {
+        this.inventory.put(item.getName(), item);
     }
 
+    // Removes an item from the store
+    public void removeItem(String itemName) {
+        this.inventory.remove(itemName);
+    }
+
+    // Updates the price of an item in the store
+    public void updatePrice(String itemName, double newPrice) {
+        GroceryItem item = this.inventory.get(itemName);
+        if (item != null) {
+            item.setPricePerUnit(newPrice);
+        }
+    }
+
+    // Retrieves the price of an item
     public double getPrice(String itemName) {
-        return inventory.getOrDefault(itemName, 0.0);
+        GroceryItem item = this.inventory.get(itemName);
+        return (item != null) ? item.getPricePerUnit() : 0.0;
     }
 
-    // Method to get a GroceryItemOrder by name and quantity
-    // Useful for adding items to a GroceryList by the person
+    // Generates an order for a given quantity of an item
     public GroceryItemOrder getOrder(String itemName, int quantity) {
-        if (inventory.containsKey(itemName)) {
-            return new GroceryItemOrder(itemName, quantity, inventory.get(itemName));
+        GroceryItem item = this.inventory.get(itemName);
+        if (item != null) {
+            return new GroceryItemOrder(item, quantity);
         } else {
-            System.out.println("Item not found in inventory.");
+            System.out.println("Item not found in inventory: " + itemName);
             return null;
         }
     }
 
+    // Prints out the inventory of the store
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Inventory of " + name + ":\n");
-        inventory.forEach((item, price) -> sb.append(item).append(": $").append(String.format("%.2f", price)).append("\n"));
+        StringBuilder sb = new StringBuilder("Inventory of " + this.name + ":\n");
+        this.inventory.forEach((name, item) -> {
+            sb.append(item.toString()).append("\n");
+        });
         return sb.toString();
     }
 }

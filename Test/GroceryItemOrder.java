@@ -1,38 +1,41 @@
 public class GroceryItemOrder {
-    private String name;
+    private GroceryItem item; // Assuming there is a GroceryItem class
     private int quantity;
-    private double pricePerUnit;
 
-    public GroceryItemOrder(String name, int quantity, double pricePerUnit) {
-        this.name = name;
+    public GroceryItemOrder(GroceryItem item, int quantity) {
+        if (item == null) {
+            throw new IllegalArgumentException("Item cannot be null.");
+        }
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Quantity cannot be negative.");
+        }
+        this.item = item;
         this.quantity = quantity;
-        this.pricePerUnit = pricePerUnit;
     }
 
     public double getCost() {
-        return quantity * pricePerUnit;
+        // If there's a discount applicable, it should be applied here
+        return quantity * item.getPricePerUnit();
     }
 
-    // Getters
-    public String getName() {
-        return name;
+    public GroceryItem getItem() {
+        return item;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public double getPricePerUnit() {
-        return pricePerUnit;
-    }
-
-    // Setters if necessary
     public void setQuantity(int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Quantity cannot be negative.");
+        }
         this.quantity = quantity;
     }
 
     @Override
     public String toString() {
-        return String.format("%s: %d units at $%.2f each. Total: $%.2f", name, quantity, pricePerUnit, getCost());
+        return String.format("%s: %d units at $%.2f each. Total: $%.2f",
+                             item.getName(), quantity, item.getPricePerUnit(), getCost());
     }
 }
