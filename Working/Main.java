@@ -45,7 +45,7 @@ public class Main {
         Student student = new Student(firstName, lastName, studentType);
         int id = registry.addStudent(student); // Ensure this method correctly assigns and returns an ID
         System.out.println("Welcome, " + studentType + " Student! Your ID is: " + id);
-    
+
         boolean done = false;
         while (!done) {
             System.out.println("Choose an option: (1) Manage courses, (2) Manage grocery list, (3) Exit");
@@ -108,7 +108,7 @@ public class Main {
             }
         }
     }
-    
+
     private static void enrollInCourse(Scanner scanner, Student student) {
         System.out.println("Enter the course number you wish to enroll in:");
         String courseNumber = scanner.nextLine().trim();
@@ -121,7 +121,7 @@ public class Main {
             System.out.println("Enrollment failed. Course may be full or does not exist.");
         }
     }
-    
+
     private static void dropCourse(Scanner scanner, Student student) {
         System.out.println("Enter the course number you wish to drop:");
         String courseNumber = scanner.nextLine().trim();
@@ -171,7 +171,7 @@ public class Main {
         Professor professor = new Professor(firstName, lastName, department);
         int id = registry.addProfessor(professor); // Ensure this method correctly assigns and returns an ID
         System.out.println("Welcome, Professor! Your ID is: " + id);
-    
+
         boolean done = false;
         while (!done) {
             System.out.println("Would you like to (1) view grocery list, (2) add item to grocery list, (3) remove item from grocery list, or (4) exit?");
@@ -196,36 +196,36 @@ public class Main {
             }
         }
     }
-    
+
 
     private static void addItemToGroceryList(Scanner scanner, Person person) {
         System.out.println("Enter the item name to add:");
         String itemName = scanner.nextLine().trim();
         System.out.println("Enter the quantity:");
         int quantity = Integer.parseInt(scanner.nextLine().trim());
-    
+
         if (person.addItemToGroceryList(itemName, quantity, campusMarket)) {
             System.out.println("Added " + quantity + " of " + itemName + " to your grocery list.");
         } else {
             System.out.println("Failed to add item. It might not be available.");
         }
     }
-    
+
     private static void removeItemFromGroceryList(Scanner scanner, Person person) {
         System.out.println("Enter the item name to remove:");
         String itemName = scanner.nextLine().trim();
-    
+
         if (person.removeItemFromGroceryList(itemName)) {
             System.out.println("Removed " + itemName + " from your grocery list.");
         } else {
             System.out.println("Item not found in your grocery list.");
         }
     }
-    
+
     private static void viewGroceryList(Person person) {
         System.out.println(person.getGroceryList());
     }
-    
+
 
     // Additional methods for interacting with courses and the grocery system
     private static void listCourses(String semester) {

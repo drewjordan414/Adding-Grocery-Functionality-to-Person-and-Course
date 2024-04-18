@@ -44,7 +44,7 @@ public class Registry implements Iterable<Student> {
         addCourse(course1);
         addCourse(course2);
     }
-    
+
     public List<Course> getAllCourses() {
         return new ArrayList<>(courses);
     }
@@ -55,14 +55,14 @@ public class Registry implements Iterable<Student> {
     //     }
     // }
     public int addStudent(Student student) {
-    if (!students.contains(student)) {
-        student.setId(nextStudentId++);  // Set the student's ID and increment for the next student
-        students.add(student);
-        return student.getId();  // Return the new ID
+        if (!students.contains(student)) {
+            student.setId(nextStudentId++);  // Set the student's ID and increment for the next student
+            students.add(student);
+            return student.getId();  // Return the new ID
+        }
+        return -1;  // Return an error code if the student is already in the list
     }
-    return -1;  // Return an error code if the student is already in the list
-}
-    
+
 
     public void addCourse(Course course) {
         if (!courses.contains(course)) {
@@ -83,20 +83,20 @@ public class Registry implements Iterable<Student> {
         }
         return -1;  // Return an error code if addition is unsuccessful
     }
-    
+
 
     public Professor findProfessorByName(String name) {
         return professors.stream()
-                         .filter(professor -> professor.getFullName().equalsIgnoreCase(name))
-                         .findFirst()
-                         .orElse(null);
+                .filter(professor -> professor.getFullName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
     }
 
     public Student findStudentByName(String name) {
         return students.stream()
-                       .filter(student -> student.getFullName().equalsIgnoreCase(name))
-                       .findFirst()
-                       .orElse(null);
+                .filter(student -> student.getFullName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
     }
 
     public boolean enrollStudent(Student student, Course course, Semester semester) {
@@ -115,27 +115,27 @@ public class Registry implements Iterable<Student> {
 
     public List<Course> getCoursesByLevelAndSemester(String level, Semester semester) {
         return courses.stream()
-                      .filter(course -> course.getLevel().equalsIgnoreCase(level) && course.getSemester().equals(semester))
-                      .collect(Collectors.toList());
+                .filter(course -> course.getLevel().equalsIgnoreCase(level) && course.getSemester().equals(semester))
+                .collect(Collectors.toList());
     }
 
     public List<Course> getCoursesByProfessor(Professor professor) {
         return professors.stream()
-                         .flatMap(prof -> prof.getCoursesTaught().stream())
-                         .collect(Collectors.toList());
+                .flatMap(prof -> prof.getCoursesTaught().stream())
+                .collect(Collectors.toList());
     }
 
     public Course findCourseByNumberAndSemester(String courseNumber, String semester) {
         return courses.stream()
-                      .filter(c -> c.getCourseNumber().equals(courseNumber) && c.getSemester().equals(semester))
-                      .findFirst()
-                      .orElse(null);
-    } 
-    
+                .filter(c -> c.getCourseNumber().equals(courseNumber) && c.getSemester().equals(semester))
+                .findFirst()
+                .orElse(null);
+    }
+
     public List<Course> getCoursesBySemester(String semester) {
         return courses.stream()
-                      .filter(course -> course.getSemester().equals(semester))
-                      .collect(Collectors.toList());
+                .filter(course -> course.getSemester().equals(semester))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -148,22 +148,22 @@ public class Registry implements Iterable<Student> {
         StringBuilder registryInfo = new StringBuilder("LOYOLA COMPUTER SCIENCE DEPARTMENT: \n\tRegistry\n");
         for (Student student : students) {
             registryInfo.append("\nStudent: ").append(student.getFullName())
-                        .append("\tCourses: ");
+                    .append("\tCourses: ");
             for (Course course : student.getRegisteredCourses()) {
                 registryInfo.append(course.getCourseTitle()).append(" (")
-                            .append(course.getSemester()).append("), ");
+                        .append(course.getSemester()).append("), ");
             }
             registryInfo.append("\nWaitlisted: ");
             for (Course course : student.getWaitListedCourses()) {
                 registryInfo.append(course.getCourseTitle()).append(" (")
-                            .append(course.getSemester()).append("), ");
+                        .append(course.getSemester()).append("), ");
             }
             registryInfo.append("\n");
         }
         registryInfo.append("\tCourses:\n");
         for (Course course : courses) {
             registryInfo.append("\t").append(course.getCourseTitle()).append(" - ")
-                        .append(course.getSemester()).append("\n");
+                    .append(course.getSemester()).append("\n");
         }
         return registryInfo.toString();
     }
