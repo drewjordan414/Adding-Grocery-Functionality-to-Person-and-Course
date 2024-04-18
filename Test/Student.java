@@ -20,8 +20,10 @@ public class Student extends Person {
         return this.id;
     }
 
- 
-
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getStudentType() {
         return studentType;
     }
@@ -39,7 +41,7 @@ public class Student extends Person {
         }
     }
 
-    public boolean  removeCourse(Course course) {
+    public boolean removeCourse(Course course) {
         if (registeredCourses.contains(course)) {
             this.registeredCourses.remove(course);
             course.getEnrolledStudents().remove(this);  // Maintain bidirectional relationship

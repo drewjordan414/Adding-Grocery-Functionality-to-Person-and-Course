@@ -8,6 +8,9 @@ public class Registry implements Iterable<Student> {
     private List<Course> courses = new ArrayList<>();
     private List<Professor> professors = new ArrayList<>();
     private List<Semester> semesters = new ArrayList<>(); // Manage semesters directly
+    private int nextStudentId = 10001;  // Starting ID for students
+    private int nextProfessorId = 20001;  // Starting ID for professors
+
 
     public Registry() {
         initializeSemesters();
@@ -28,7 +31,7 @@ public class Registry implements Iterable<Student> {
     }
 
 
-    private void initializeCourses() {
+    public void initializeCourses() {
         // Sample professors
         Professor prof1 = new Professor("John", "Doe", "Computer Science", 1);
         Professor prof2 = new Professor("Jane", "Smith", "Mathematics", 2);
@@ -44,11 +47,20 @@ public class Registry implements Iterable<Student> {
     
 
 
-    public void addStudent(Student student) {
-        if (!students.contains(student)) {
-            students.add(student);
-        }
+    // public void addStudent(Student student) {
+    //     if (!students.contains(student)) {
+    //         students.add(student);
+    //     }
+    // }
+    public int addStudent(Student student) {
+    if (!students.contains(student)) {
+        student.setId(nextStudentId++);  // Set the student's ID and increment for the next student
+        students.add(student);
+        return student.getId();  // Return the new ID
     }
+    return -1;  // Return an error code if the student is already in the list
+}
+    
 
     public void addCourse(Course course) {
         if (!courses.contains(course)) {
@@ -56,11 +68,20 @@ public class Registry implements Iterable<Student> {
         }
     }
 
-    public void addProfessor(Professor professor) {
+    // public void addProfessor(Professor professor) {
+    //     if (!professors.contains(professor)) {
+    //         professors.add(professor);
+    //     }
+    // }
+    public int addProfessor(Professor professor) {
         if (!professors.contains(professor)) {
+            professor.setId(nextProfessorId++);  // Assuming there's a mechanism to increment IDs
             professors.add(professor);
+            return professor.getId();  // Return the new ID
         }
+        return -1;  // Return an error code if addition is unsuccessful
     }
+    
 
     public Professor findProfessorByName(String name) {
         return professors.stream()
