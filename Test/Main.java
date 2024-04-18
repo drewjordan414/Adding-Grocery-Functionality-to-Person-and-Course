@@ -3,18 +3,19 @@ import java.util.Scanner;
 public class Main {
     private static Registry registry = new Registry();
     private static GroceryStore campusMarket = new GroceryStore("Campus Market");
-    
+
     public static void main(String[] args) {
-        initializeSystem(); // This should setup your system with initial data
-        
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Welcome to the University System");
-            System.out.println("Are you a 'Student' or a 'Professor'? (Enter 'Exit' to exit)");
+        registry.initializeCourses(); // Initialize with predefined data
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the University Management System!");
+        while (true) {
+            System.out.println("Are you a 'Student' or a 'Professor'? Type 'Exit' to exit.");
             String userType = scanner.nextLine().trim().toLowerCase();
 
             if ("exit".equals(userType)) {
                 System.out.println("Exiting the system. Goodbye!");
-                return;
+                break;
             }
 
             switch (userType) {
@@ -26,94 +27,109 @@ public class Main {
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
-                    break;
             }
-        } // Scanner is auto-closed here
+        }
+        scanner.close();
     }
-    
-    private static void initializeSystem() {
-        // Initialize the system with test data
-        Course course1 = new Course("COMP-271", "Capstone Project");
-        Course course2 = new Course("COMP-101", "Introduction to Programming");
-        Course course3 = new Course("COMP-201", "Data Structures");
-        
-        Student student1 = new Student("John Doe", "123456");
-        Student student2 = new Student("Jane Smith", "789012");
-        
-        Professor professor1 = new Professor("Dr. Johnson", "A123");
-        Professor professor2 = new Professor("Dr. Anderson", "B456");
-        
-        campusMarket.addCourse(course1);
-        campusMarket.addCourse(course2);
-        campusMarket.addCourse(course3);
-        
-        campusMarket.addStudent(student1);
-        campusMarket.addStudent(student2);
-        
-        campusMarket.addProfessor(professor1);
-        campusMarket.addProfessor(professor2);
-        
-        registry.addCourse(course1);
-        registry.addCourse(course2);
-        registry.addCourse(course3);
-        
-        registry.addStudent(student1);
-        registry.addStudent(student2);
-        
-        registry.addProfessor(professor1);
-        registry.addProfessor(professor2);
-    }
-    
+
     private static void handleStudent(Scanner scanner) {
-        System.out.println("Please enter your full name:");
-        String name = scanner.nextLine().trim();
-    
-        Student student = registry.findStudentByName(name);
-        if (student == null) {
-            // Create a new student if not found
-            student = new Student(name.split(" ")[0], name.split(" ")[1]);
-            registry.addStudent(student);
-        }
-    
+        System.out.println("Enter your first name:");
+        String firstName = scanner.nextLine().trim();
+        System.out.println("Enter your last name:");
+        String lastName = scanner.nextLine().trim();
         System.out.println("Are you an 'Undergraduate' or 'Graduate' student?");
-        String studentType = scanner.nextLine().trim().toLowerCase();
-        if ("undergraduate".equals(studentType)) {
-            // handle undergraduate specific logic
-        } else if ("graduate".equals(studentType)) {
-            // handle graduate specific logic
-        } else {
-            System.out.println("Invalid student type. Please enter 'Undergraduate' or 'Graduate'.");
-        }
-    
-        // ... Additional logic for enrolling in courses, managing grocery list, etc.
+        String studentType = scanner.nextLine().trim();
+        int id = registry.addStudent(new Student(firstName, lastName, studentType)); // Assumes addStudent returns an ID
+        System.out.println("Welcome, " + studentType + " Student! Your ID is: " + id);
+        // Additional student-specific interactions
     }
-    
+
     private static void handleProfessor(Scanner scanner) {
-        System.out.println("Please enter your full name:");
-        String name = scanner.nextLine().trim();
-    
-        Professor professor = registry.findProfessorByName(name);
-        if (professor == null) {
-            // Create a new professor if not found
-            System.out.println("Please enter your department:");
-            String department = scanner.nextLine().trim();
-            professor = new Professor(name.split(" ")[0], name.split(" ")[1], department);
-            registry.addProfessor(professor);
-        }
-    
-        // Display the courses the professor is teaching
-        List<Course> coursesTeaching = registry.getCoursesByProfessor(professor);
-        if (coursesTeaching.isEmpty()) {
-            System.out.println("You are not teaching any courses this semester.");
+        System.out.println("Enter your first name:");
+        String firstName = scanner.nextLine().trim();
+        System.out.println("Enter your last name:");
+        String lastName = scanner.nextLine().trim();
+        System.out.println("Enter your department:");
+        String department = scanner.nextLine().trim();
+        int id = registry.addProfessor(new Professor(firstName, lastName, department)); // Assumes addProfessor returns an ID
+        System.out.println("Welcome, Professor! Your ID is: " + id);
+        // Additional professor-specific interactions
+    }
+
+    // Additional methods for interacting with courses and the grocery system
+     // Method to list all courses available for a given semester
+     private static void listCourses(String semester) {
+        List<Course> courses = registry.getCoursesBySemester(semester);
+        if (courses.isEmpty()) {
+            System.out.println("No courses available for " + semester);
         } else {
-            System.out.println("You are teaching the following courses:");
-            for (Course course : coursesTeaching) {
+            System.out.println("Available Courses for " + semester + ":");
+            for (Course course : courses) {
                 System.out.println(course.getCourseNumber() + ": " + course.getCourseTitle());
             }
         }
-    
-        // ... Additional logic for managing grocery list, including discounts if applicable
     }
-    
-    // Additional methods for student and professor operations...
+
+    // Method to enroll in a course
+    private static void enrollInCourse(Student student, String courseNumber, String semester) {
+        Course course = registry.findCourseByNumberAndSemester(courseNumber, semester);
+        if (course != null && course.enrollStudent(student)) {
+            System.out.println("Enrollment successful in " + course.getCourseTitle());
+        } else {
+            System.out.println("Enrollment failed. Course may be full or does not exist.");
+        }
+    }
+
+    // Method to drop a course
+    private static void dropCourse(Student student, String courseNumber, String semester) {
+        Course course = registry.findCourseByNumberAndSemester(courseNumber, semester);
+        if (course != null && student.removeCourse(course)) {
+            System.out.println("Dropped " + course.getCourseTitle() + " successfully.");
+        } else {
+            System.out.println("Failed to drop the course. You might not be enrolled.");
+        }
+    }
+
+    // Method to view all enrolled courses
+    private static void viewEnrolledCourses(Student student) {
+        List<Course> courses = student.getRegisteredCourses();
+        if (courses.isEmpty()) {
+            System.out.println("You are not enrolled in any courses.");
+        } else {
+            System.out.println("You are currently enrolled in:");
+            for (Course course : courses) {
+                System.out.println(course.getCourseNumber() + ": " + course.getCourseTitle());
+            }
+        }
+    }
+
+    // Grocery Store interactions
+
+    // Method to view items in the grocery store
+    private static void viewGroceryStoreItems() {
+        System.out.println(campusMarket);
+    }
+
+    // Method to add item to grocery list
+    private static void addItemToGroceryList(Person person, String itemName, int quantity) {
+        if (person.addItemToGroceryList(itemName, quantity, campusMarket)) {
+            System.out.println("Added " + quantity + " of " + itemName + " to your grocery list.");
+        } else {
+            System.out.println("Failed to add item. It might not be available.");
+        }
+    }
+
+    // Method to remove item from grocery list
+    private static void removeItemFromGroceryList(Person person, String itemName) {
+        if (person.removeItemFromGroceryList(itemName)) {
+            System.out.println("Removed " + itemName + " from your grocery list.");
+        } else {
+            System.out.println("Item not found in your grocery list.");
+        }
+    }
+
+    // Method to view grocery list
+    private static void viewGroceryList(Person person) {
+        System.out.println(person.getGroceryList());
+    }
 }
