@@ -1,4 +1,4 @@
 # Comp 271 Capstone
 
 ## UML Diagram
-![uml diagram](uml3.png)
+![uml diagram](proj_extras/images/uml3.png)
