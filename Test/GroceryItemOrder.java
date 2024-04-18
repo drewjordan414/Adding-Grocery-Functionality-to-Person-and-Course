@@ -33,9 +33,14 @@ public class GroceryItemOrder {
         this.quantity = quantity;
     }
 
+    public String getName() {
+        return item.getName(); // the getName call contained GroceryItem
+    }
+
     @Override
     public String toString() {
         return String.format("%s: %d units at $%.2f each. Total: $%.2f",
                              item.getName(), quantity, item.getPricePerUnit(), getCost());
     }
 }
+

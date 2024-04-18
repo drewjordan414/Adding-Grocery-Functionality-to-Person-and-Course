@@ -59,7 +59,7 @@ public class Registry implements Iterable<Student> {
 
     public boolean enrollStudent(Student student, Course course, Semester semester) {
         if (students.contains(student) && courses.contains(course) && course.getSemester().equals(semester)) {
-            return course.addStudent(student);
+            return course.enrollStudent(student);
         }
         return false;
     }
@@ -151,7 +151,3 @@ public class Registry implements Iterable<Student> {
     }
 }
 
-
-// Semester Management: Semesters are now managed directly within the Registry, providing a centralized way to handle academic periods.
-// Initialization of Semesters: Added a method to initialize default semesters for a couple of years, which you can extend or modify based on actual academic schedules.
-// Semester Inner Class: The Semester class is now an inner class within Registry, ensuring that semester management is tightly coupled with the course and enrollment management system.

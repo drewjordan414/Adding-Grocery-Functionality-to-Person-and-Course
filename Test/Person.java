@@ -78,6 +78,11 @@ public class Person implements Shopper {
     }
 
     @Override
+    public double getTotalGroceryListCost() {
+        return this.groceryList.getTotalCost();
+    }
+
+    @Override
     public String toString() {
         return "Name: " + this.getFullName() + " | Role: " + this.role;
     }

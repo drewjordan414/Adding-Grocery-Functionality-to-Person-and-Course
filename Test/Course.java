@@ -27,6 +27,10 @@ public class Course implements Comparable<Course> {
         this.waitList = new LinkedList<>();
     }
 
+    public int getMaxEnrollment() {
+        return this.maxEnrollment;
+    }
+
     public String getSemester() {
         return this.semester;
     }
@@ -51,7 +55,14 @@ public class Course implements Comparable<Course> {
         this.level = level;
     }
 
+    public String getCourseTitle() {
+        return courseTitle;
+    }
+
     public boolean enrollStudent(Student student) {
+        if (student == null) {
+            return false;
+        }
         if (this.enrolledStudents.size() < this.maxEnrollment) {
             this.enrolledStudents.add(student);
             student.addRegisteredCourse(this);
@@ -64,7 +75,11 @@ public class Course implements Comparable<Course> {
     }
 
     public void removeStudent(Student student) {
-        if (this.enrolledStudents.remove(student)) {
+        if (student == null) {
+            return;
+        }
+        if (this.enrolledStudents.contains(student)) {
+            this.enrolledStudents.remove(student);
             student.removeCourse(this);
             this.checkWaitList();
         } else {
@@ -74,10 +89,12 @@ public class Course implements Comparable<Course> {
     }
 
     public void checkWaitList() {
-        while(!this.waitList.isEmpty() && this.enrolledStudents.size() < this.maxEnrollment) {
+        while (!this.waitList.isEmpty() && this.enrolledStudents.size() < this.maxEnrollment) {
             Student student = this.waitList.poll();
-            this.enrolledStudents.add(student);
-            student.addRegisteredCourse(this);
+            if (student != null) {
+                this.enrolledStudents.add(student);
+                student.addRegisteredCourse(this);
+            }
         }
     }
 
