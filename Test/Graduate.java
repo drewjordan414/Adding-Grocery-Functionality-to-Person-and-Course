@@ -2,7 +2,7 @@ public class Graduate extends Student {
     private int year;
 
     // Constructor for Graduate students, assuming year could be relevant for their program as well
-    public Graduate(String firstName, String lastName, String studentType, int year) {
+    public Graduate(String firstName, String lastName, String studentType, int year, int id) {
         super(firstName, lastName, studentType); // Pass 'Graduate' as a studentType from wherever you instantiate this class
         this.setYear(year);
     }

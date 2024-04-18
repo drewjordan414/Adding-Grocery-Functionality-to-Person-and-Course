@@ -3,14 +3,14 @@ import java.util.List;
 
 public class Professor extends Person {
     private String department;
-    private String semester;
-    private List<Course> coursesTaught;  // List of courses the professor teaches
+    private int id;
+    private List<Course> coursesTaught;
 
-    public Professor(String firstName, String lastName, String department,String semester) {
-        super(firstName, lastName, "Professor"); // Assume all instances of Professor have a role of "Professor"
+    public Professor(String firstName, String lastName, String department, int id) {
+        super(firstName, lastName, "Professor");
         this.department = department;
-        this.semester = semester;
-        this.coursesTaught = new ArrayList<>(); // Initialize the list of courses taught
+        this.id = id;
+        this.coursesTaught = new ArrayList<>();
     }
 
     public String getDepartment() {
@@ -19,6 +19,14 @@ public class Professor extends Person {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void addCourse(Course course) {
@@ -32,11 +40,10 @@ public class Professor extends Person {
     }
 
     public List<Course> getCoursesTaught() {
-        return new ArrayList<>(this.coursesTaught); // Return a copy for encapsulation
+        return new ArrayList<>(this.coursesTaught);
     }
 
-    public List<Course> getCoursesForSemester (String semester) {
-        // Return a list of courses that this professor is teaching for a specific semester
+    public List<Course> getCoursesForSemester(String semester) {
         List<Course> coursesForSemester = new ArrayList<>();
         for (Course course : coursesTaught) {
             if (course.getSemester().equals(semester)) {
@@ -48,7 +55,7 @@ public class Professor extends Person {
 
     @Override
     public String toString() {
-        // Show basic info along with department
-        return super.toString() + " | Department: " + getDepartment();
+        return super.toString() + " | Department: " + department + " | ID: " + id;
     }
 }
+

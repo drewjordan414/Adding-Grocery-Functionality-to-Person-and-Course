@@ -80,6 +80,8 @@ import java.util.List;
 public class Professor extends Person implements Shopper {
 //    private int id;
     private String department;
+    private String firstName;
+    private String lastName;
     private List<Course> coursesTaught;
     private GroceryList groceryList;
 

@@ -2,7 +2,7 @@ public class Undergrad extends Student {
     private int year;
  
     // Updated constructor to match the updated Student class constructor
-    public Undergrad(String firstName, String lastName, String studentType, int year) {
+    public Undergrad(String firstName, String lastName, String studentType, int year, int id) {
        super(firstName, lastName, studentType); // Pass 'Undergraduate' as a studentType from wherever you instantiate this class
        this.setYear(year);
     }

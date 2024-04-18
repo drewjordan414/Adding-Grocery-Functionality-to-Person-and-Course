@@ -11,7 +11,9 @@ public class Registry implements Iterable<Student> {
 
     public Registry() {
         initializeSemesters();
+        initializeCourses();
     }
+
 
     private void initializeSemesters() {
         // Assuming semesters start from a specific year and generate forward
@@ -24,6 +26,21 @@ public class Registry implements Iterable<Student> {
         semesters.add(new Semester("Fall", startYear + 1));
         // Continue adding as needed
     }
+
+
+    public void initializeCourses() {
+        // Adding sample professors
+        Professor prof1 = new Professor("John", "Doe", "Computer Science");
+        Professor prof2 = new Professor("Jane", "Smith", "Mathematics");
+        addProfessor(prof1);
+        addProfessor(prof2);
+        // Adding sample courses
+        Course course1 = new Course(3, "CS101", "Introduction to Computer Science", 5, "Fall 2024", prof1, "Undergraduate");
+        Course course2 = new Course(4, "MATH101", "Calculus I", 5, "Spring 2025", prof2, "Undergraduate");
+        addCourse(course1);
+        addCourse(course2);
+    }
+
 
     public void addStudent(Student student) {
         if (!students.contains(student)) {

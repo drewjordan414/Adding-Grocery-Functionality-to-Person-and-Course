@@ -7,12 +7,20 @@ public class Student extends Person {
     private List<Course> registeredCourses = new ArrayList<>();
     private List<Course> waitListedCourses = new ArrayList<>();
     private GroceryList groceryList;
+    private int id;
 
     public Student(String firstName, String lastName, String studentType) {
         super(firstName, lastName, "Student");
         this.studentType = studentType;
+        
         this.groceryList = new GroceryList();
     }
+
+    public int getId() {
+        return this.id;
+    }
+
+ 
 
     public String getStudentType() {
         return studentType;
@@ -83,7 +91,7 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return "Student Name: " + this.getFullName() + " | Type: " + this.getStudentType();
+        return "Student Name: " + this.getFullName() + " | Type: " + this.getStudentType() + " | ID: " + this.getId();
     }
 }
 
