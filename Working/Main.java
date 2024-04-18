@@ -36,12 +36,26 @@ public class Main {
     }
 
     private static void handleStudent(Scanner scanner) {
-        System.out.println("Enter your first name:");
+        System.out.println("Enter your first name or type 'Exit' to quit:");
         String firstName = scanner.nextLine().trim();
-        System.out.println("Enter your last name:");
+        if ("exit".equalsIgnoreCase(firstName)) {
+            System.out.println("Exiting registration.");
+            return; // Exits the method early
+        }
+    
+        System.out.println("Enter your last name or type 'Exit' to quit:");
         String lastName = scanner.nextLine().trim();
-        System.out.println("Are you an 'Undergraduate' or 'Graduate' student?");
+        if ("exit".equalsIgnoreCase(lastName)) {
+            System.out.println("Exiting registration.");
+            return; // Exits the method early
+        }
+    
+        System.out.println("Are you an 'Undergraduate' or 'Graduate' student? Type 'Exit' to quit:");
         String studentType = scanner.nextLine().trim();
+        if ("exit".equalsIgnoreCase(studentType)) {
+            System.out.println("Exiting registration.");
+            return; // Exits the method early
+        }
         Student student = new Student(firstName, lastName, studentType);
         int id = registry.addStudent(student); // Ensure this method correctly assigns and returns an ID
         System.out.println("Welcome, " + studentType + " Student! Your ID is: " + id);
@@ -162,12 +176,26 @@ public class Main {
     }
 
     private static void handleProfessor(Scanner scanner) {
-        System.out.println("Enter your first name:");
-        String firstName = scanner.nextLine().trim();
-        System.out.println("Enter your last name:");
-        String lastName = scanner.nextLine().trim();
-        System.out.println("Enter your department:");
-        String department = scanner.nextLine().trim();
+        System.out.println("Enter your first name or type 'Exit' to quit:");
+    String firstName = scanner.nextLine().trim();
+    if ("exit".equalsIgnoreCase(firstName)) {
+        System.out.println("Exiting registration.");
+        return; // Exits the method early
+    }
+
+    System.out.println("Enter your last name or type 'Exit' to quit:");
+    String lastName = scanner.nextLine().trim();
+    if ("exit".equalsIgnoreCase(lastName)) {
+        System.out.println("Exiting registration.");
+        return; // Exits the method early
+    }
+
+    System.out.println("Enter your department or type 'Exit' to quit:");
+    String department = scanner.nextLine().trim();
+    if ("exit".equalsIgnoreCase(department)) {
+        System.out.println("Exiting registration.");
+        return; // Exits the method early
+    }
         Professor professor = new Professor(firstName, lastName, department);
         int id = registry.addProfessor(professor); // Ensure this method correctly assigns and returns an ID
         System.out.println("Welcome, Professor! Your ID is: " + id);
