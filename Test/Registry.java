@@ -28,18 +28,20 @@ public class Registry implements Iterable<Student> {
     }
 
 
-    public void initializeCourses() {
-        // Adding sample professors
-        Professor prof1 = new Professor("John", "Doe", "Computer Science");
-        Professor prof2 = new Professor("Jane", "Smith", "Mathematics");
+    private void initializeCourses() {
+        // Sample professors
+        Professor prof1 = new Professor("John", "Doe", "Computer Science", 1);
+        Professor prof2 = new Professor("Jane", "Smith", "Mathematics", 2);
         addProfessor(prof1);
         addProfessor(prof2);
-        // Adding sample courses
+
+        // Sample courses
         Course course1 = new Course(3, "CS101", "Introduction to Computer Science", 5, "Fall 2024", prof1, "Undergraduate");
         Course course2 = new Course(4, "MATH101", "Calculus I", 5, "Spring 2025", prof2, "Undergraduate");
         addCourse(course1);
         addCourse(course2);
     }
+    
 
 
     public void addStudent(Student student) {

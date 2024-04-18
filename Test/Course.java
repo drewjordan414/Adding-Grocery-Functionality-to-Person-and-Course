@@ -15,7 +15,7 @@ public class Course implements Comparable<Course> {
     private Professor professor;
     private String level;
 
-    public Course(int id, String code, String title, int credits, int creditHours, String courseNumber, String courseTitle, int maxEnrollment, String semester, Professor professor, String level) {
+    public Course(int creditHours, String courseNumber, String courseTitle, int maxEnrollment, String semester, Professor professor, String level) {
         this.creditHours = creditHours;
         this.courseNumber = courseNumber;
         this.courseTitle = courseTitle;
