@@ -102,6 +102,13 @@ public class Registry implements Iterable<Student> {
                          .collect(Collectors.toList());
     }
 
+    public Course findCourseByNumberAndSemester(String courseNumber, String semester) {
+        return courses.stream()
+                      .filter(c -> c.getCourseNumber().equals(courseNumber) && c.getSemester().equals(semester))
+                      .findFirst()
+                      .orElse(null);
+    }    
+
     @Override
     public Iterator<Student> iterator() {
         return students.iterator();

@@ -39,11 +39,13 @@ public class Student extends Person {
         }
     }
 
-    public void removeCourse(Course course) {
+    public boolean  removeCourse(Course course) {
         if (registeredCourses.contains(course)) {
             this.registeredCourses.remove(course);
             course.getEnrolledStudents().remove(this);  // Maintain bidirectional relationship
+            return true;
         }
+        return false;
     }
 
     public void addWaitListedCourse(Course course) {

@@ -51,6 +51,10 @@ public class Course implements Comparable<Course> {
         return this.level;
     }
 
+    public String getCourseNumber() {
+        return courseNumber;
+    }
+
     public void setLevel(String level) {
         this.level = level;
     }

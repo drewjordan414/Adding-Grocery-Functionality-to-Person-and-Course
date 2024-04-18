@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -5,7 +6,8 @@ public class Main {
     private static GroceryStore campusMarket = new GroceryStore("Campus Market");
 
     public static void main(String[] args) {
-        registry.initializeCourses(); // Initialize with predefined data
+        // registry.initializeCourses(); // Initialize with predefined data
+        initializeSystem();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to the University Management System!");
@@ -30,6 +32,10 @@ public class Main {
             }
         }
         scanner.close();
+    }
+
+    private static void initializeSystem() {
+        registry.initializeCourses();  // Make sure this method is public or package-private
     }
 
     private static void handleStudent(Scanner scanner) {
@@ -89,6 +95,7 @@ public class Main {
             System.out.println("Failed to drop the course. You might not be enrolled.");
         }
     }
+    
 
     // Method to view all enrolled courses
     private static void viewEnrolledCourses(Student student) {
