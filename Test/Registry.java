@@ -33,8 +33,8 @@ public class Registry implements Iterable<Student> {
 
     public void initializeCourses() {
         // Sample professors
-        Professor prof1 = new Professor("John", "Doe", "Computer Science", 1);
-        Professor prof2 = new Professor("Jane", "Smith", "Mathematics", 2);
+        Professor prof1 = new Professor("John", "Doe", "Computer Science");
+        Professor prof2 = new Professor("Jane", "Smith", "Mathematics");
         addProfessor(prof1);
         addProfessor(prof2);
 
@@ -128,7 +128,13 @@ public class Registry implements Iterable<Student> {
                       .filter(c -> c.getCourseNumber().equals(courseNumber) && c.getSemester().equals(semester))
                       .findFirst()
                       .orElse(null);
-    }    
+    } 
+    
+    public List<Course> getCoursesBySemester(String semester) {
+        return courses.stream()
+                      .filter(course -> course.getSemester().equals(semester))
+                      .collect(Collectors.toList());
+    }
 
     @Override
     public Iterator<Student> iterator() {

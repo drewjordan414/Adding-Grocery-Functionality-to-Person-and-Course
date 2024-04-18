@@ -6,10 +6,9 @@ public class Professor extends Person {
     private int id;
     private List<Course> coursesTaught;
 
-    public Professor(String firstName, String lastName, String department, int id) {
+    public Professor(String firstName, String lastName, String department) {
         super(firstName, lastName, "Professor");
         this.department = department;
-        this.id = id;
         this.coursesTaught = new ArrayList<>();
     }
 
@@ -21,12 +20,12 @@ public class Professor extends Person {
         this.department = department;
     }
 
-    public int getId() {
-        return this.id;
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public void addCourse(Course course) {
