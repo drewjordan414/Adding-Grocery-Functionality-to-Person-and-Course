@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.Collections;
 
 public class Registry implements Iterable<Student> {
     private List<Student> students = new ArrayList<>();
@@ -15,6 +14,16 @@ public class Registry implements Iterable<Student> {
     public Registry() {
         initializeSemesters();
         initializeCourses();
+    }
+
+    private void initializeProfessors() {
+        professors.add(new Professor("John", "Doe", "Computer Science"));
+        professors.add(new Professor("Jane", "Smith", "Mathematics"));
+        professors.add(new Professor("Alice", "Johnson", "Physics"));
+        // Assign IDs to professors and simulate incrementing IDs for new professors
+        for (Professor professor : professors) {
+            professor.setId(nextProfessorId++);
+        }
     }
 
 
@@ -44,7 +53,7 @@ public class Registry implements Iterable<Student> {
         addCourse(course1);
         addCourse(course2);
     }
-    
+
     public List<Course> getAllCourses() {
         return new ArrayList<>(courses);
     }
@@ -55,14 +64,14 @@ public class Registry implements Iterable<Student> {
     //     }
     // }
     public int addStudent(Student student) {
-    if (!students.contains(student)) {
-        student.setId(nextStudentId++);  // Set the student's ID and increment for the next student
-        students.add(student);
-        return student.getId();  // Return the new ID
+        if (!students.contains(student)) {
+            student.setId(nextStudentId++);  // Set the student's ID and increment for the next student
+            students.add(student);
+            return student.getId();  // Return the new ID
+        }
+        return -1;  // Return an error code if the student is already in the list
     }
-    return -1;  // Return an error code if the student is already in the list
-}
-    
+
 
     public void addCourse(Course course) {
         if (!courses.contains(course)) {
@@ -83,21 +92,42 @@ public class Registry implements Iterable<Student> {
         }
         return -1;  // Return an error code if addition is unsuccessful
     }
-    
+
 
     public Professor findProfessorByName(String name) {
         return professors.stream()
-                         .filter(professor -> professor.getFullName().equalsIgnoreCase(name))
-                         .findFirst()
-                         .orElse(null);
+                .filter(professor -> professor.getFullName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
     }
 
     public Student findStudentByName(String name) {
         return students.stream()
-                       .filter(student -> student.getFullName().equalsIgnoreCase(name))
-                       .findFirst()
-                       .orElse(null);
+                .filter(student -> student.getFullName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
     }
+
+    public List<Course> getCoursesByProfessorAndSemester(Professor professor, String semester) {
+        List<Course> filteredCourses = new ArrayList<>();
+        for (Course course : courses) {
+            if (course.getProfessor() != null && course.getProfessor().equals(professor) && course.getSemester().equalsIgnoreCase(semester)) {
+                filteredCourses.add(course);
+            }
+        }
+
+        Collections.sort(filteredCourses, new Comparator<Course>() {
+            @Override
+            public int compare(Course c1, Course c2) {
+                int courseNumberComparison = c1.getCourseNumber().compareTo(c2.getCourseNumber());
+                if (courseNumberComparison != 0) return courseNumberComparison;
+                return c1.getCourseTitle().compareTo(c2.getCourseTitle());
+            }
+        });
+
+        return filteredCourses;
+    }
+
 
     public boolean enrollStudent(Student student, Course course, Semester semester) {
         if (students.contains(student) && courses.contains(course) && course.getSemester().equals(semester)) {
@@ -115,27 +145,31 @@ public class Registry implements Iterable<Student> {
 
     public List<Course> getCoursesByLevelAndSemester(String level, Semester semester) {
         return courses.stream()
-                      .filter(course -> course.getLevel().equalsIgnoreCase(level) && course.getSemester().equals(semester))
-                      .collect(Collectors.toList());
+                .filter(course -> course.getLevel().equalsIgnoreCase(level) && course.getSemester().equals(semester))
+                .collect(Collectors.toList());
     }
 
     public List<Course> getCoursesByProfessor(Professor professor) {
         return professors.stream()
-                         .flatMap(prof -> prof.getCoursesTaught().stream())
-                         .collect(Collectors.toList());
+                .flatMap(prof -> prof.getCoursesTaught().stream())
+                .collect(Collectors.toList());
     }
 
+
+
     public Course findCourseByNumberAndSemester(String courseNumber, String semester) {
+        System.out.println("Looking for course: " + courseNumber + " in semester: " + semester);  // Add for debugging
         return courses.stream()
-                      .filter(c -> c.getCourseNumber().equals(courseNumber) && c.getSemester().equals(semester))
-                      .findFirst()
-                      .orElse(null);
-    } 
-    
+                .filter(c -> c.getCourseNumber().equalsIgnoreCase(courseNumber.trim()) && c.getSemester().equalsIgnoreCase(semester.trim()))
+                .findFirst()
+                .orElse(null);
+    }
+
+
     public List<Course> getCoursesBySemester(String semester) {
         return courses.stream()
-                      .filter(course -> course.getSemester().equals(semester))
-                      .collect(Collectors.toList());
+                .filter(course -> course.getSemester().equals(semester))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -148,24 +182,35 @@ public class Registry implements Iterable<Student> {
         StringBuilder registryInfo = new StringBuilder("LOYOLA COMPUTER SCIENCE DEPARTMENT: \n\tRegistry\n");
         for (Student student : students) {
             registryInfo.append("\nStudent: ").append(student.getFullName())
-                        .append("\tCourses: ");
+                    .append("\tCourses: ");
             for (Course course : student.getRegisteredCourses()) {
                 registryInfo.append(course.getCourseTitle()).append(" (")
-                            .append(course.getSemester()).append("), ");
+                        .append(course.getSemester()).append("), ");
             }
             registryInfo.append("\nWaitlisted: ");
             for (Course course : student.getWaitListedCourses()) {
                 registryInfo.append(course.getCourseTitle()).append(" (")
-                            .append(course.getSemester()).append("), ");
+                        .append(course.getSemester()).append("), ");
             }
             registryInfo.append("\n");
         }
         registryInfo.append("\tCourses:\n");
         for (Course course : courses) {
             registryInfo.append("\t").append(course.getCourseTitle()).append(" - ")
-                        .append(course.getSemester()).append("\n");
+                    .append(course.getSemester()).append("\n");
         }
         return registryInfo.toString();
+    }
+
+    public void assignProfessorToCourse(String professorName, String courseNumber, String semester) {
+        Professor professor = findProfessorByName(professorName);
+        Course course = findCourseByNumberAndSemester(courseNumber, semester);
+        if (professor != null && course != null) {
+            course.setProfessor(professor);
+            System.out.println("Professor " + professorName + " assigned to course " + course.getCourseTitle() + " for " + semester);
+        } else {
+            System.out.println("Assignment failed. Either the professor name or the course number and semester are incorrect.");
+        }
     }
 
     // Nested class to manage Semester within Registry
@@ -204,5 +249,34 @@ public class Registry implements Iterable<Student> {
             return 31 * term.hashCode() + year;
         }
     }
+
+    public boolean courseExists(String courseNumber, String semester) {
+        for (Course course : courses) {
+            if (course.getCourseNumber().equalsIgnoreCase(courseNumber) && course.getSemester().equalsIgnoreCase(semester)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void listCoursesByProfessor(Scanner scanner, Professor professor) {
+        System.out.println("Listing courses for Professor: " + professor.getFullName());
+        System.out.println("Enter the semester:");
+        String semester = scanner.nextLine().trim();
+
+        List<Course> courses = getCoursesByProfessorAndSemester(professor, semester);
+        if (courses.isEmpty()) {
+            System.out.println("No courses found for Professor " + professor.getFullName() + " in " + semester);
+        } else {
+            System.out.println("Courses taught by " + professor.getFullName() + " in " + semester + ":");
+            for (Course course : courses) {
+                System.out.println(course.getCourseNumber() + ": " + course.getCourseTitle());
+            }
+        }
+    }
+
 }
+
+
+
 

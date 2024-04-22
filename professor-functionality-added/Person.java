@@ -87,11 +87,3 @@ public class Person implements Shopper {
         return "Name: " + this.getFullName() + " | Role: " + this.role;
     }
 }
-
-// Role Management: Added a role field to differentiate between students
-// (undergraduate/graduate) and professors.
-// Shopper Implementation: Each person can now manage a grocery list, add items
-// to it, remove them, and view the list. This is directly aligned with your
-// system's requirements.
-// Grocery List: Incorporated a GroceryList object for every person as part of
-// their attributes. This list gets initialized when the person is created.

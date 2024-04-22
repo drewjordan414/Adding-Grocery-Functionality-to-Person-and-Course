@@ -1,11 +1,11 @@
+package Working.Decompiled;
+
 public class GroceryList {
     private static final int MAX_ITEMS = 10; // Maximum number of items the list can hold
     private GroceryItemOrder[] items = new GroceryItemOrder[MAX_ITEMS]; // Array to store grocery items
     private int itemCount = 0; // Counter to track the number of items in the list
-    private Person owner;
-    
-    public GroceryList(Person owner) {
-        this.owner = owner;
+
+    public GroceryList() {
     }
 
     // Method to add a grocery item to the list
@@ -29,31 +29,26 @@ public class GroceryList {
     }
 
     public boolean removeItem(String itemName) {
-        for (int i = 0; i < itemCount; i++) {
-            if (items[i].getName().equals(itemName)) {
-                // Shift the array to fill the removed item's position
-                for (int j = i; j < itemCount - 1; j++) {
-                    items[j] = items[j + 1];
-                }
-                items[itemCount - 1] = null; // Nullify the last element
-                itemCount--;
-                return true; // Successfully removed the item
-            }
-        }
-        return false; // Item was not found
-    }
-
+      for (int i = 0; i < itemCount; i++) {
+          if (items[i].getName().equals(itemName)) {
+              // Shift the array to fill the removed item's position
+              for (int j = i; j < itemCount - 1; j++) {
+                  items[j] = items[j + 1];
+              }
+              items[itemCount - 1] = null; // Nullify the last element
+              itemCount--;
+              return true; // Successfully removed the item
+          }
+      }
+      return false; // Item was not found
+  }
+  
 
     // Method to calculate the total cost of all items in the list
     public double getTotalCost() {
         double totalCost = 0.0;
-        for (GroceryItemOrder item : items) {
-            totalCost += item.getCost();
-        }
-        if (owner instanceof Professor) {
-            totalCost *= 0.95; // Apply a 5% discount for professors
-        } else if (owner instanceof Graduate) {
-            totalCost *= 0.90; // Apply a 10% discount for graduate students
+        for (int i = 0; i < itemCount; i++) {
+            totalCost += items[i].getCost(); // Sum up the cost of each item
         }
         return totalCost;
     }
@@ -68,3 +63,11 @@ public class GroceryList {
         return sb.toString();
     }
 }
+
+
+// This class is now equipped with methods to:
+
+// Add items: Ensuring the list doesn't exceed its maximum capacity.
+// Remove items: Allowing for dynamic management of the list contents.
+// Calculate total cost: Providing a summary of the cost for all items in the list.
+// String representation: Offering a detailed view of the list and its total cost, useful for debugging and user interfaces.

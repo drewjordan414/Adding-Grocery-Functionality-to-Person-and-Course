@@ -18,7 +18,6 @@ public class Main {
                 System.out.println("Exiting the system. Goodbye!");
                 break;
             }
-
             if (userType.equals("student")) {
                 handleStudent(scanner);
             } else if (userType.equals("professor")) {
@@ -29,6 +28,99 @@ public class Main {
         }
         scanner.close();
     }
+
+    private static void handleProfessor(Scanner scanner) {
+        System.out.println("Enter your first name or type 'Exit' to quit:");
+        String firstName = scanner.nextLine().trim();
+        if ("exit".equalsIgnoreCase(firstName)) {
+            System.out.println("Exiting registration.");
+            return; // Exits the method early
+        }
+
+
+        System.out.println("Enter your last name or type 'Exit' to quit:");
+        String lastName = scanner.nextLine().trim();
+        if ("exit".equalsIgnoreCase(lastName)) {
+            System.out.println("Exiting registration.");
+            return; // Exits the method early
+        }
+
+
+        System.out.println("Enter your department or type 'Exit' to quit:");
+        String department = scanner.nextLine().trim();
+        if ("exit".equalsIgnoreCase(department)) {
+            System.out.println("Exiting registration.");
+            return; // Exits the method early
+        }
+        Professor professor = new Professor(firstName, lastName, department);
+        int id = registry.addProfessor(professor);
+        System.out.println("Welcome, Professor! Your ID is: " + id);
+
+
+        boolean done = false;
+        while (!done) {
+            System.out.println("Would you like to (1) view grocery list, (2) add item to grocery list, (3) remove item from grocery list, (4) manage courses, or (5) exit?");
+            String choice = scanner.nextLine().trim();
+            switch (choice) {
+                case "1":
+                    viewGroceryList(professor);
+                    break;
+                case "2":
+                    addItemToGroceryList(scanner, professor);
+                    break;
+                case "3":
+                    removeItemFromGroceryList(scanner, professor);
+                    break;
+                case "4":
+                    handleProfessorCourses(scanner, professor);
+                    break;
+                case "5":
+                    System.out.println("Exiting professor services.");
+                    done = true; // This ensures we exit the loop entirely
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+
+
+
+
+    public static void handleProfessorCourses(Scanner scanner, Professor professor) {
+        boolean done = false;
+        System.out.println("Entering course management for Professor: " + professor.getFullName());
+        while (!done) {
+            System.out.println("Choose an option: (1) Assign to course, (2) List courses by semester, (3) Exit");
+            String choice = scanner.nextLine().trim();
+            switch (choice) {
+                case "1":
+                    System.out.println("Which course would you like to assign to " + professor.getFullName() + "? Enter the course number:");
+                    String courseNumber = scanner.nextLine().trim();
+                    System.out.println("Enter the semester for the course assignment:");
+                    String semester = scanner.nextLine().trim();
+                    if (registry.courseExists(courseNumber, semester)) {
+                        registry.assignProfessorToCourse(professor.getFullName(), courseNumber, semester);
+                        System.out.println("Assignment successful.");
+                    } else {
+                        System.out.println("Course or semester does not exist.");
+                    }
+                    break;
+                case "2":
+                    registry.listCoursesByProfessor(scanner, professor);
+                    break;
+                case "3":
+                    System.out.println("Exiting course management.");
+                    done = true;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+                    break;
+            }
+        }
+    }
+
 
     private static void initializeSystem() {
         // Initialize courses and other startup settings
@@ -175,55 +267,9 @@ public class Main {
         }
     }
 
-    private static void handleProfessor(Scanner scanner) {
-        System.out.println("Enter your first name or type 'Exit' to quit:");
-    String firstName = scanner.nextLine().trim();
-    if ("exit".equalsIgnoreCase(firstName)) {
-        System.out.println("Exiting registration.");
-        return; // Exits the method early
-    }
 
-    System.out.println("Enter your last name or type 'Exit' to quit:");
-    String lastName = scanner.nextLine().trim();
-    if ("exit".equalsIgnoreCase(lastName)) {
-        System.out.println("Exiting registration.");
-        return; // Exits the method early
-    }
 
-    System.out.println("Enter your department or type 'Exit' to quit:");
-    String department = scanner.nextLine().trim();
-    if ("exit".equalsIgnoreCase(department)) {
-        System.out.println("Exiting registration.");
-        return; // Exits the method early
-    }
-        Professor professor = new Professor(firstName, lastName, department);
-        int id = registry.addProfessor(professor); // Ensure this method correctly assigns and returns an ID
-        System.out.println("Welcome, Professor! Your ID is: " + id);
 
-        boolean done = false;
-        while (!done) {
-            System.out.println("Would you like to (1) view grocery list, (2) add item to grocery list, (3) remove item from grocery list, or (4) exit?");
-            String choice = scanner.nextLine().trim();
-            switch (choice) {
-                case "1":
-                    viewGroceryList(professor);
-                    break;
-                case "2":
-                    addItemToGroceryList(scanner, professor);
-                    break;
-                case "3":
-                    removeItemFromGroceryList(scanner, professor);
-                    break;
-                case "4":
-                    System.out.println("Exiting grocery list management.");
-                    done = true;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
-            }
-        }
-    }
 
 
     private static void addItemToGroceryList(Scanner scanner, Person person) {

@@ -45,7 +45,7 @@ public class Course implements Comparable<Course> {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
-    }
+    }// used by  assignProfessorToCourse() in Registry
 
     public String getLevel() {
         return this.level;
@@ -123,12 +123,12 @@ public class Course implements Comparable<Course> {
         if (!(o instanceof Course)) return false;
         Course course = (Course) o;
         return creditHours == course.creditHours &&
-               maxEnrollment == course.maxEnrollment &&
-               courseNumber.equals(course.courseNumber) &&
-               courseTitle.equals(course.courseTitle) &&
-               Objects.equals(semester, course.semester) &&
-               Objects.equals(professor, course.professor) &&
-               Objects.equals(level, course.level);
+                maxEnrollment == course.maxEnrollment &&
+                courseNumber.equals(course.courseNumber) &&
+                courseTitle.equals(course.courseTitle) &&
+                Objects.equals(semester, course.semester) &&
+                Objects.equals(professor, course.professor) &&
+                Objects.equals(level, course.level);
     }
 
     @Override
@@ -139,13 +139,13 @@ public class Course implements Comparable<Course> {
     @Override
     public String toString() {
         return "Course{" +
-               "creditHours=" + creditHours +
-               ", courseNumber='" + courseNumber + '\'' +
-               ", courseTitle='" + courseTitle + '\'' +
-               ", maxEnrollment=" + maxEnrollment +
-               ", semester='" + semester + '\'' +
-               ", level='" + level + '\'' +
-               ", professor=" + professor +
-               '}';
+                "creditHours=" + creditHours +
+                ", courseNumber='" + courseNumber + '\'' +
+                ", courseTitle='" + courseTitle + '\'' +
+                ", maxEnrollment=" + maxEnrollment +
+                ", semester='" + semester + '\'' +
+                ", level='" + level + '\'' +
+                ", professor=" + professor +
+                '}';
     }
 }

@@ -45,7 +45,7 @@ public class Course implements Comparable<Course> {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
-    }
+    }// used by  assignProfessorToCourse() in Registry
 
     public String getLevel() {
         return this.level;

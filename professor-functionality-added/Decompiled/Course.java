@@ -1,3 +1,5 @@
+package Working.Decompiled;
+
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -13,12 +15,11 @@ public class Course implements Comparable<Course> {
     private int maxEnrollment;
     private Set<Student> enrolledStudents;
     private List<Student> waitList;
-    private String semester;  // Changed from Semester type to String
-    private Professor professor;  // Reference to Professor who teaches the course
-    private String level;  // Level of the course
+    private Semester semester;
+    private Professor professor; // Reference to Professor who teaches the course
+    private String level; // Level of the course, e.g., "Undergrad" or "Graduate"
 
-    public Course(int creditHours, String courseNumber, String courseTitle, int maxEnrollment, String semester,
-                  Professor professor, String level) {
+    public Course(int creditHours, String courseNumber, String courseTitle, int maxEnrollment, Semester semester, Professor professor, String level) {
         this.creditHours = creditHours;
         this.courseNumber = courseNumber;
         this.courseTitle = courseTitle;
@@ -26,15 +27,16 @@ public class Course implements Comparable<Course> {
         this.semester = semester;
         this.professor = professor;  // Set the professor
         this.level = level;
+        // this.enrolledStudents = new TreeSet<>(Comparator.comparing(Student::getStudentId));
         this.enrolledStudents = new TreeSet<>(Comparator.comparing(Student::getFullName)); // Comparing by full name
         this.waitList = new LinkedList<>();
     }
 
-    public String getSemester() {
+    public Semester getSemester() {
         return this.semester;
     }
 
-    public void setSemester(String semester) {
+    public void setSemester(Semester semester) {
         this.semester = semester;
     }
 
@@ -78,7 +80,7 @@ public class Course implements Comparable<Course> {
 
     public void checkWaitList() {
         Iterator<Student> iterator = this.waitList.iterator();
-        while (iterator.hasNext() && this.enrolledStudents.size() < this.maxEnrollment) {
+        while(iterator.hasNext() && this.enrolledStudents.size() < this.maxEnrollment) {
             Student student = iterator.next();
             this.enrolledStudents.add(student);
             student.addRegisteredCourse(this);
@@ -116,12 +118,12 @@ public class Course implements Comparable<Course> {
         if (obj == null || getClass() != obj.getClass()) return false;
         Course course = (Course) obj;
         return creditHours == course.creditHours &&
-                maxEnrollment == course.maxEnrollment &&
-                Objects.equals(courseNumber, course.courseNumber) &&
-                Objects.equals(courseTitle, course.courseTitle) &&
-                Objects.equals(semester, course.semester) &&
-                Objects.equals(professor, course.professor) &&
-                Objects.equals(level, course.level);
+               maxEnrollment == course.maxEnrollment &&
+               Objects.equals(courseNumber, course.courseNumber) &&
+               Objects.equals(courseTitle, course.courseTitle) &&
+               Objects.equals(semester, course.semester) &&
+               Objects.equals(professor, course.professor) &&
+               Objects.equals(level, course.level);
     }
 
     @Override
@@ -136,4 +138,6 @@ public class Course implements Comparable<Course> {
         return courseTitle.compareTo(o.courseTitle);
     }
 }
+
+
 

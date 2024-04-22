@@ -40,7 +40,7 @@ public class GroceryItemOrder {
     @Override
     public String toString() {
         return String.format("%s: %d units at $%.2f each. Total: $%.2f",
-                             item.getName(), quantity, item.getPricePerUnit(), getCost());
+                item.getName(), quantity, item.getPricePerUnit(), getCost());
     }
 }
 
