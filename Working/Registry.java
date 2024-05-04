@@ -49,11 +49,7 @@ public class Registry implements Iterable<Student> {
         return new ArrayList<>(courses);
     }
 
-    // public void addStudent(Student student) {
-    //     if (!students.contains(student)) {
-    //         students.add(student);
-    //     }
-    // }
+
     public int addStudent(Student student) {
         if (!students.contains(student)) {
             student.setId(nextStudentId++);  // Set the student's ID and increment for the next student
@@ -70,11 +66,6 @@ public class Registry implements Iterable<Student> {
         }
     }
 
-    // public void addProfessor(Professor professor) {
-    //     if (!professors.contains(professor)) {
-    //         professors.add(professor);
-    //     }
-    // }
     public int addProfessor(Professor professor) {
         if (!professors.contains(professor)) {
             professor.setId(nextProfessorId++);  // Assuming there's a mechanism to increment IDs
